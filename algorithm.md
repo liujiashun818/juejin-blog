@@ -109,18 +109,18 @@
     ['王文成'，'王峰','蒋雪','李明'].sort((a,b) => a.localeCompare(b, 'zh'))
     ```
 * every(fun) 检测数组中的每个元素是否符合函数提供的条件。如果一个元素不满足，return false，剩余的元素不在检测。 
-```
-var ages = [32, 33, 16, 40];
 
-function checkAdult(age) {
-    return age >= 18;
-}
-
-function myFunction() {
-    document.getElementById("demo").innerHTML = ages.every(checkAdult);
-}
-// false
-```
+      ```
+         var ages = [32, 33, 16, 40];
+         function checkAdult(age) {
+             return age >= 18;
+         }
+         function myFunction() {
+             document.getElementById("demo").innerHTML = ages.every(checkAdult);
+         }
+         // false
+      ```
+      
 ### 三、迭代器和生成器 ###
  * 迭代器iterator 是一种设计模式，它提供了一种遍历内容的方法，不需要关心内部的构造。生成器（generator）本身也是一种设计模式，用于构造复杂对象，js中的生成器用于构造迭代器。
  * 优势： 
@@ -181,74 +181,77 @@ function myFunction() {
         // [1,2,3,4,5]
  ```
  * 生成器构造无穷斐波那契数列
+ 
  ```
- // 求前10项
- function* fibonaqi(){
-     let a = 1, b = 1;
-     yield a;
-     yield b;
-     while(true){
-     const t = b // 存储 第一位
-     b = a + b;  // 第三项等于前两项的值相加
-     a = t; // 赋值第一位 
-         yield b; // 执行一次
-     }
- }
- const it = fibonaqi();
- const feb10 = Array.from(Array(10), it.next, it).map(x => x.value)
- console.log(feb10);
- // [1,1,2,3,5,8,13,21,34,55]
+    // 求前10项
+    function* fibonaqi(){
+        let a = 1, b = 1;
+        yield a;
+        yield b;
+        while(true){
+        const t = b // 存储 第一位
+        b = a + b;  // 第三项等于前两项的值相加
+        a = t; // 赋值第一位 
+            yield b; // 执行一次
+        }
+    }
+    const it = fibonaqi();
+    const feb10 = Array.from(Array(10), it.next, it).map(x => x.value)
+    console.log(feb10);
+    // [1,1,2,3,5,8,13,21,34,55]
  ```
 * 数组的展平
 ```
-function* flatten(arr){
-    for(let i = 0; i < arr.length; i++){
-     if(Array.isArray(arr[i])){
-         yield *flatten(arr[i])
-     }else{
-     yield arr[i]
-    }
-}
-    
-}
-console.log(flatten([1,2,[3,4,[5]]]))
-// flatten{<suspended>}
-// 必须用展开符[...flatten()]
-console.log([...flatten([1,2,[3,4,[5]]])])
-// [1,2,3,4,5]
+   function* flatten(arr){
+       for(let i = 0; i < arr.length; i++){
+        if(Array.isArray(arr[i])){
+            yield *flatten(arr[i])
+        }else{
+        yield arr[i]
+       }
+   }
+
+   }
+   console.log(flatten([1,2,[3,4,[5]]]))
+   // flatten{<suspended>}
+   // 必须用展开符[...flatten()]
+   console.log([...flatten([1,2,[3,4,[5]]])])
+   // [1,2,3,4,5]
 ```
 * generator 异步语法 // 需要TODO
+
 ```
-function request(url){
-    return cb => {
-        setTimeout(() => {
-            cb(Math.random())
-        }, 1000)
-    }
-}
-// 自调用此函数收到一个函数，并执行返回的函数
-create_runner(function*(){
-    const val1 = yield request('some url');
-    const val2 = yield request('some url');
-    console.log(val1, val2)
-})();
-// 传入一个函数返回一个经过处理的函数，
-function create_runner(genFunc){
-    const it = genFunc(); // 迭代器
-    // data 是谁？ cb吗？
-    function run(data){
-        const itVal = it.next(data);
-        if(!itVal.done){
-            itVal.value(run)
-        }
-    }
-    return run 
-}
+   function request(url){
+       return cb => {
+           setTimeout(() => {
+               cb(Math.random())
+           }, 1000)
+       }
+   }
+   // 自调用此函数收到一个函数，并执行返回的函数
+   create_runner(function*(){
+       const val1 = yield request('some url');
+       const val2 = yield request('some url');
+       console.log(val1, val2)
+   })();
+   // 传入一个函数返回一个经过处理的函数，
+   function create_runner(genFunc){
+       const it = genFunc(); // 迭代器
+       // data 是谁？ cb吗？
+       function run(data){
+           const itVal = it.next(data);
+           if(!itVal.done){
+               itVal.value(run)
+           }
+       }
+       return run 
+   }
 ```
 * 迪卡尔积 
   * [1,2]*['a','b'] = [[1,'a'],[1,'b'],[2,'a'],[2,['b']]]
-  ```
-        function cartesian_product(...Matrix){
+  
+   ```
+     function cartesian_product(...Matrix){
         if(Matrix.length === 0){
             return []; 
         }
@@ -272,14 +275,13 @@ function create_runner(genFunc){
             }
             return product;
         })
-    }  
-  let a  = cartesian_product(['a','b'],[1,2])
-    //
-    //0: (2) ["a", 1]
-    //1: (2) ["a", 2]
-    //2: (2) ["b", 1]
-    //3: (2) ["b", 2]
-  ```
+       }  
+     let a  = cartesian_product(['a','b'],[1,2])
+       //0: (2) ["a", 1]
+       //1: (2) ["a", 2]
+       //2: (2) ["b", 1]
+       //3: (2) ["b", 2]
+   ```
  * 链式操作
    * ..map().filter().sort().map()
    * 优点: 语义清晰、思考方便
@@ -287,14 +289,16 @@ function create_runner(genFunc){
    * 场景： 数据返回数组。小于1万。
  ### 四、常用算法 ### 
  * 递归 就是自己调用自己
+ 
  ```
- //阶乘
- function factorial(n){
-     return n === 0 ? 1 :factorial(n-1) * n
- }
- let fa4 = factorial(4);
- //1*2*3*4 24
+    //阶乘
+    function factorial(n){
+        return n === 0 ? 1 :factorial(n-1) * n
+    }
+    let fa4 = factorial(4);
+    //1*2*3*4 24
  ```
+ 
  ```
   // 斐波那契数列
   funcition fibonacci(n){
