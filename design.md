@@ -25,7 +25,7 @@
 * 简介： 每种设计模式的出现都是为了弥补语言在某方面的不足，解决特定环境下的问题。思想是相通的。只不过不同的设计语言有其特定的实现。对javascript这种动态语言来说，弱类型的特性，与生俱来的多态性，导致某些设计模式不自觉的我们都在使用。只不过没有对应起来罢了。
 * 　重复而言，使用设计模式的目的是为了提高我们解决问题的效率，不同的设计模式也是针对不同环境的特定方案，不仅仅是单独的某一种设计模式，大多数情况下都是多个模式共存的。切勿为了使用设计模式而强行引入，也切勿不同情况坚持使用某一种设计模式。不要被形式总之快速高效的解决问题才是我们的唯一目的。
 
-   * **1、创建型**
+* **1、创建型**
       
      * 工厂模式
      * 建造者模式
@@ -57,6 +57,7 @@
     
 ## 四、工厂模式(factory) ##
  *  简单工厂模式 : 是由一个工厂对象决定创建出哪一种产品类的实例
+ 
  ````
 class Plant{
     constructor(name) {
@@ -93,6 +94,7 @@ console.log(apple);
 let orange=Factory.create('orange');
 console.log(orange);
 ````
+
 * 工厂方法模式（多态性工厂模式）
     *  核心的工厂类不再负责所有产品的创建，而是将具体的工作交个子类去做。
     
@@ -135,9 +137,11 @@ let apple=new settings['apple']().create();
 console.log(apple);
 let orange=new settings['orange']().create();
 console.log(orange);
+
 ```
 
 * 抽象工厂模式是指当有多个抽象角色时，使用的一种工厂模式。它向客户端提供一个接口，使客户端在不必指定产品的具体情况下，创建多个产品族中的产品对象。
+
 ```
 class Button{
     render() {
@@ -201,12 +205,15 @@ appleFactory.createIcon().render();
 let windowsFactory=new settings['windows']();
 windowsFactory.createButton().render();
 windowsFactory.createIcon().render();
+
 ```
+
 * 单例模式（单子模式/单体模式）
   * 含义： 软件中较为简单最常用的设计模式，保证‘一个类仅有一个实例’，并提供一个访问它的全局访问点（getInstance）。
   * 原理思路：用一个变量来标识当前是否已经为某个类创建过对象，如果是，则在下一次获取该类的实例时，直接返回之前创建的对象。
   * 优点：声明一个命名空间生成一个唯一的全局变量可以解决命名冲突问题；可以快速定位bug;比new对象更占优势；
   * 缺点：扩展性不好；灵活性不好；储存同一个位置，修改属性值慎重。
+  
 ```
 // typescript 
 class Window {
@@ -224,6 +231,7 @@ class Window {
 var w1 = Window.getInstance();
 var w2 = Window.getInstance();
 console.log(w1 === w2);
+
 ```
 
 ```
@@ -244,6 +252,7 @@ Window.getInstance=(function () {
 })();
 let window=Window.getInstance('zfpx');
 window.getName();
+
 ```
 
 
@@ -269,7 +278,9 @@ let window1=new Window('zfpx');
 let window2=new Window('zfpx');
 window1.getName();
 console.log(window1 === window2)
+
 ```
+
 ```
 //单例与构建分离
 function Window(name) {
@@ -293,7 +304,9 @@ let window1=new createSingle('zfpx');
 let window2=new createSingle('zfpx');
 window1.getName();
 console.log(window1 === window2)
+
 ```
+
 ```
 //封装变化
 function Window(name) {
@@ -319,6 +332,7 @@ let window1=new CreateWindow('zfpx');
 let window2=new CreateWindow('zfpx');
 window1.getName();
 console.log(window1 === window2)
+
 ```
 
 ```
@@ -348,7 +362,9 @@ function createStore(reducer) {
     }
 }
 let store = createStore();
+
 ```
+
 ```
 // 应用场景
 class Login{
@@ -391,11 +407,14 @@ document.getElementById('showBtn').addEventListener('click',function (event) {
 document.getElementById('hideBtn').addEventListener('click',function (event) {
     Login.getInstance().hide();
 });
+
 ```
+
 ## 五、适配器模式（adapter） ##
 * 含义：将一个（A）接口（类的方法），通过一个类（适配器B）转换成客户需要的接口（方法）,而不需要修改（A）的代码。通过一个类过滤下改变了方法。
 * 思路原理：A=>B(适配器)=>C（我需要的），但是A不变。
 * 应用场景
+
 ```
 // 插件适配 适配参数、后端接口数据
 function ajax(options){
@@ -433,6 +452,7 @@ let readFile=promisify(fs.readFile);
 readFile('./1.txt','utf8').then(data => console.log(data));
 
 ```
+
 ```
 //jquery
 let $=require('jquery');
@@ -453,6 +473,7 @@ let $={
 }
 
 ```
+
 ```
 // computed
 <!DOCTYPE html>
@@ -484,6 +505,7 @@ let vm=new Vue({
 </script>
 </body>
 </html>
+
 ```
 ## 六、装饰器（decorator）模式 ##
 
@@ -491,6 +513,7 @@ let vm=new Vue({
 * 功能：es7@func。在不改变原有的结构和功能对象的前提下添加新功能
 * 优点:装饰比继承更加灵活
 * 缺点
+
 ```
 // 基本代码
 class Duck{
@@ -508,7 +531,9 @@ class TangDuck{
         console.log('谢谢');
     }
 }
+
 ```
+
 ```
 // 包装器
 class Coffee{
@@ -547,7 +572,9 @@ let coffee = new Coffee();
 let milkCoffee = new MilkCoffee(coffee);
 let milksugerCoffee = new SugerCoffee(milkCoffee);
 console.log(milksugerCoffee.make('水')+'='+milksugerCoffee.cost());
+
 ```
+
 ```
 //表单验证
 <body>
@@ -719,12 +746,15 @@ wangMama.boyfriend={
     age: 41,
     salary:3000
 }
+
 ```
+
 ## 八、外观者（appearance）模式 ##
  * 含义：该模式就是把一些复杂的流程封装成一个接口供给外部用户更方便的使用，核心是“门面角色”，也就是常用的封装暴露出接口。
  * 场景：
     * 为复杂的模块或子系统提供外界访问的模块
     * 子系统相互独立
+    
 ```
 // 基本代码
 class CPU{
@@ -835,6 +865,7 @@ subject.emit('click','zfpx');
 // 1,zfpx
 // 2,zfpx
 ```
+
 ```
 //promise 
 class Promise{
@@ -857,6 +888,7 @@ let promise=new Promise(function (resolve,reject) {
 promise.then(() => console.log(1));
 promise.then(() => console.log(2));
 ```
+
 ## 十、迭代器(iterator)模式 ##
 * 含义：顺序访问一个集合[array/object]，调用者无需知道集合内部具体实现。
 * 场景：对于集合内部结果常常变化各异，我们不想暴露其内部结构的话，但又想让客户代码透明地访问其中的元素，这种情况下我们可以使用迭代器模式。
@@ -898,6 +930,7 @@ console.log(it.next());
 console.log(it.next());
 console.log(it.next());
 ```
+
 ```
 //基本代码二
 $.each( [1, 2, 3], function( i, n ){
@@ -939,6 +972,7 @@ console.log(it.next());
 console.log(it.next());
 console.log(it.next());
 ```
+
 ```
 // 常用的上传文件功能，不同的上传方式是不一样的目前有三种上传方式，要兼容不同的浏览器。
 // IE 上传控件
@@ -1027,6 +1061,7 @@ new SuperMarry()
     .change(['squat'])
     .go()                    // 触发动作  蹲下!
 ````
+
 ```
 //react 导航
 const States = {
@@ -1204,6 +1239,7 @@ let p1 = new Person('张三');
 let p2=new Person('李四');
 console.log(p1.getName===p2.getName);
  ```
+ 
 ```
 // 场景：
 <!DOCTYPE html>
@@ -1297,6 +1333,7 @@ function BridgeClass(a, b, c, d){
     this.class2 = new Class2(d);
 }
 ```
+
 ```
 //事件监听
 //从逻辑上分析，把id传给getBeerById函数式合情理的，且回应结果总是通过一个毁掉函数返回。这么理解，我们现在做的是针对接口而不是实现进行编程，用桥梁模式把抽象隔离开来。
@@ -1371,6 +1408,7 @@ app.listen(8888);
 </body>
 </html>
 ```
+
 ```
 //分离多维变化
 <!DOCTYPE html>
@@ -1443,6 +1481,7 @@ new Ball(300,300,'red').draw();
     * 具体例子：dom节点、文件夹（文件）、订单（子订单）,树形菜单，部分、整体的场景。
     * 存在一批组织成某种层次体系的对象(具体的结构在开发期间可能无法得知)
     * 希望这批对象或其中的一部分对象实施一个操作.组合模式擅长于对大批对象进行操作.它专为组织这类对象并把操作从一个层次向下一个层次传递而设计.
+
 ```
 // react 基本实现
 <!DOCTYPE html>
@@ -1504,6 +1543,7 @@ render(React.createElement("div",null,"hello,",React.createElement("span",{class
 </body>
 </html>
 ```
+
 ```
 //文件夹和文件
 function Folder(name) {
@@ -1565,6 +1605,7 @@ folder.show();
 * 优点：行为请求者”与“行为实现者”解耦， 可以容易地实现对请求的撤销和重做
 * 缺点：改模式使得我们简单的调用方法变得非常复杂和难以理解，
 * 使用场景：添加、返回（撤销、重做），
+
 ```
 //基本代码
 class Cooker{
@@ -1615,6 +1656,7 @@ let cleaner=new Cleaner();
 c.command = new CleanCommand(cleaner);
 c.clean();
 ```
+
 ```
 //计数器
 <!DOCTYPE html>
@@ -1653,6 +1695,7 @@ addBtn.onclick = ()=>addCommand.execute();
 </body>
 </html>
 ```
+
 ```
 // 多步撤销和重做
 <!DOCTYPE html>
@@ -1738,11 +1781,13 @@ redoBtn.onclick = ()=>redoCommand.execute();
 </body>
 </html>
 ```
+
 ## 十七、享元（flyweight）模式 ##
 * 含义：共享内存、共享相同的数据，对数据和方法分离成内部数据、内部方法（可以共享）和外部数据、外部方法（不可共享）0。
 * 优点：节约内存空间。
 * 缺点：无
 * 应用场景：共享一个对象、共享一个方法、
+
 ```
 // 共享对象，传进不同的参数
 <!DOCTYPE html>
@@ -1817,6 +1862,7 @@ class Jiangwen extends Person{
 let j=new Jiangwen();
 j.dinner();
 ```
+
 ```
 // 公共模板弹框
 
@@ -1903,7 +1949,9 @@ class ConfirmDialog extends Dialog{
         this.cancelBtn.parentNode.removeChild(this.cancelBtn);
     }
 }
+
 ```
+
 ## 十九、职责链（responsibility chain）模式 ##
 * 含义：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系，将这些对象连成一条链，并沿着这条链传递改请求，直到有一个对象处理它为止。
 * 含义2： 一个操作可能分为多个职责角色来完成，把这些角色都分开，然后用一个链串起来，将发送者和各个处理者进行隔离。
@@ -1958,6 +2006,7 @@ groupLeader.audit();
     * 1、消耗资源、消耗内存。 
 * 应用场景：后悔了、存档、Ctrl+z、IE后退、回滚、
 * 注意事项：需要增加一个管理备忘录的类，为了节约内存、可使用原型模式+备忘录模式。
+
 ```
     <input type="text" id="content">
     <button id="save-btn">保存</button>
@@ -2007,6 +2056,7 @@ groupLeader.audit();
       });
     </script>
 ```
+
 ## 二十一、中介者(intermediary)模式 ##
 * 含义：用一个中介对象来封装系列的对象交互，中介者使各个对象不需要显示的互相引用，从而使其耦合松散，而且可以独立的改变它们之间的交互。目的是解耦。
 * 优点：
@@ -2019,6 +2069,7 @@ groupLeader.audit();
     * 2、对外暴露简单的接口（不添加额外的功能）
 * 应用场景：
 * 其它：中介者模式把交互复杂性变成了中介者本身的复杂性，中介者对象会比其它任何对象都复杂。
+
 ```
 class Boy{
     constructor(mediator) {
@@ -2157,6 +2208,7 @@ let family=new Family(father,mother,son);
 let zhaoliying=new Girl('赵丽颖');
 family.view(zhaoliying);
 ```
+
 ## 二十三、解释器（interpreter）模式 ##
 * 含义：是定义语言的文法，并且建立一个解释器来解释该语言中的句子。解释器模式描述了如何构成一个简单的语言解释器，主要应用在使用面向对象语言开发的编译器中。它描述了如何为简单的语言定义一个文法，如何在该语言中表示一个句子，以及如何解释这些句子。在解释器模式中除了能够使用文法规则来定义一个语言，还有通过一个更加直观的方法来表示——使用抽象语法树。抽象语法树能够更好地，更直观地表示一个语言的构成，每一颗抽象语法树对应一个语言实例。
 * 优点：
