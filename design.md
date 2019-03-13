@@ -142,7 +142,7 @@ console.log(orange);
 
 * 抽象工厂模式是指当有多个抽象角色时，使用的一种工厂模式。它向客户端提供一个接口，使客户端在不必指定产品的具体情况下，创建多个产品族中的产品对象。
 
-         ```
+```
          class Button{
              render() {
              }
@@ -203,7 +203,7 @@ console.log(orange);
          windowsFactory.createButton().render();
          windowsFactory.createIcon().render();
          
-         ```
+ ```
          
 * 单例模式（单子模式/单体模式）
   * 含义： 软件中较为简单最常用的设计模式，保证‘一个类仅有一个实例’，并提供一个访问它的全局访问点（getInstance）。
