@@ -109,7 +109,7 @@
     ['王文成'，'王峰','蒋雪','李明'].sort((a,b) => a.localeCompare(b, 'zh'))
     ```
 * every(fun) 检测数组中的每个元素是否符合函数提供的条件。如果一个元素不满足，return false，剩余的元素不在检测。 
-````
+```
 var ages = [32, 33, 16, 40];
 
 function checkAdult(age) {
@@ -120,7 +120,7 @@ function myFunction() {
     document.getElementById("demo").innerHTML = ages.every(checkAdult);
 }
 // false
-````
+```
 ### 三、迭代器和生成器 ###
  * 迭代器iterator 是一种设计模式，它提供了一种遍历内容的方法，不需要关心内部的构造。生成器（generator）本身也是一种设计模式，用于构造复杂对象，js中的生成器用于构造迭代器。
  * 优势： 
@@ -130,12 +130,12 @@ function myFunction() {
     * 构造异步语法。
   * 参考函数库[ranmda](https://ramdajs.com/)  
     
- ````
+ ```
    const s = new Set([1,2,3,4,5]);
     const it = s.values();
     console.log(it);
     // SetIterator { 1, 2, 3, 4, 5}
- ````
+ ```
  * while取值
  
  ```
