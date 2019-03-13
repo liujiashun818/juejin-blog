@@ -142,71 +142,71 @@ console.log(orange);
 
 * 抽象工厂模式是指当有多个抽象角色时，使用的一种工厂模式。它向客户端提供一个接口，使客户端在不必指定产品的具体情况下，创建多个产品族中的产品对象。
 
-```
-class Button{
-    render() {
+ ```
+ class Button{
+     render() {
 
-    }
-}
-class AppleButton{
-    render() {
-       console.log('苹果按钮');
-    }
-}
-class WindowButton{
-    render() {
-       console.log('Windows按钮');
-    }
-}
+     }
+ }
+ class AppleButton{
+     render() {
+        console.log('苹果按钮');
+     }
+ }
+ class WindowButton{
+     render() {
+        console.log('Windows按钮');
+     }
+ }
 
-class Icon{
-    render() {
+ class Icon{
+     render() {
 
-    }
-}
-class AppleIcon{
-    render() {
-       console.log('苹果图标');
-    }
-}
-class WindowIcon{
-    render() {
-       console.log('Windows图标');
-    }
-}
-class Factory{
-    createButton() {}
-    createIcon() {}
-}
-class AppleFactory{
-    createButton() {
-        return new AppleButton();
-    }
-    createIcon() {
-        return new AppleButton();
-    }
-}
-class WindowsFactory{
-    createButton() {
-        return new WindowButton();
-    }
-    createIcon() {
-        return new WindowIcon();
-    }
-}
-const settings={
-    'apple': AppleFactory,
-    'windows':WindowsFactory
-}
-let appleFactory=new settings['apple']();
-appleFactory.createButton().render();
-appleFactory.createIcon().render();
+     }
+ }
+ class AppleIcon{
+     render() {
+        console.log('苹果图标');
+     }
+ }
+ class WindowIcon{
+     render() {
+        console.log('Windows图标');
+     }
+ }
+ class Factory{
+     createButton() {}
+     createIcon() {}
+ }
+ class AppleFactory{
+     createButton() {
+         return new AppleButton();
+     }
+     createIcon() {
+         return new AppleButton();
+     }
+ }
+ class WindowsFactory{
+     createButton() {
+         return new WindowButton();
+     }
+     createIcon() {
+         return new WindowIcon();
+     }
+ }
+ const settings={
+     'apple': AppleFactory,
+     'windows':WindowsFactory
+ }
+ let appleFactory=new settings['apple']();
+ appleFactory.createButton().render();
+ appleFactory.createIcon().render();
 
-let windowsFactory=new settings['windows']();
-windowsFactory.createButton().render();
-windowsFactory.createIcon().render();
+ let windowsFactory=new settings['windows']();
+ windowsFactory.createButton().render();
+ windowsFactory.createIcon().render();
 
-```
+ ```
 
 * 单例模式（单子模式/单体模式）
   * 含义： 软件中较为简单最常用的设计模式，保证‘一个类仅有一个实例’，并提供一个访问它的全局访问点（getInstance）。
