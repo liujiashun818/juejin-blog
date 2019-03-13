@@ -250,8 +250,7 @@
 * 迪卡尔积 
   * [1,2]*['a','b'] = [[1,'a'],[1,'b'],[2,'a'],[2,['b']]]
   
-   ```
-     function cartesian_product(...Matrix){
+    function cartesian_product(...Matrix){
         if(Matrix.length === 0){
             return []; 
         }
@@ -281,7 +280,7 @@
        //1: (2) ["a", 2]
        //2: (2) ["b", 1]
        //3: (2) ["b", 2]
-   ```
+  
  * 链式操作
    * ..map().filter().sort().map()
    * 优点: 语义清晰、思考方便
