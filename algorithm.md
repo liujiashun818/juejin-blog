@@ -118,7 +118,6 @@
          function myFunction() {
              document.getElementById("demo").innerHTML = ages.every(checkAdult);
          }
-         // false
       ```
       
 ### 三、迭代器和生成器 ###
