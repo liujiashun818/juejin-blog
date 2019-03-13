@@ -248,8 +248,8 @@
    }
 ```
 * 迪卡尔积 
-  * [1,2]*['a','b'] = [[1,'a'],[1,'b'],[2,'a'],[2,['b']]]
-  
+ * [1,2]*['a','b'] = [[1,'a'],[1,'b'],[2,'a'],[2,['b']]]
+  ```
     function cartesian_product(...Matrix){
         if(Matrix.length === 0){
             return []; 
@@ -280,7 +280,7 @@
        //1: (2) ["a", 2]
        //2: (2) ["b", 1]
        //3: (2) ["b", 2]
-  
+  ```
  * 链式操作
    * ..map().filter().sort().map()
    * 优点: 语义清晰、思考方便
@@ -317,6 +317,7 @@
   let a = fibonacci(5);//8
   
  ```
+ 
  ```
  //fill 通过序数拿值
  Array(10).fill(0).map((x,i)=>i)
@@ -327,6 +328,7 @@
  [...Array(10)].map(_,i)=>i);
  //[0,1,2,3,4,5,6,7,8,9]
  ```
+ 
  ```
   //深度拷贝对象
   
@@ -341,6 +343,7 @@
       return newObj;
   }
  ```
+ 
  ```
  //深度比较
  function deepCompare(a,b){
@@ -355,10 +358,6 @@
     return Object.keys(propsA).every(key => deepCompare(a[key],b[key]))
 }
  ```
-````
-//树
-
-````
  
  
   
