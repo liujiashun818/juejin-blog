@@ -143,7 +143,65 @@ console.log(orange);
 * 抽象工厂模式是指当有多个抽象角色时，使用的一种工厂模式。它向客户端提供一个接口，使客户端在不必指定产品的具体情况下，创建多个产品族中的产品对象。
 
  ```
-      是是是
+        class Button{
+             render() {
+             }
+         }
+         class AppleButton{
+             render() {
+                console.log('苹果按钮');
+             }
+         }
+         class WindowButton{
+             render() {
+                console.log('Windows按钮');
+             }
+         }
+
+         class Icon{
+             render() {
+             }
+         }
+         class AppleIcon{
+             render() {
+                console.log('苹果图标');
+             }
+         }
+         class WindowIcon{
+             render() {
+                console.log('Windows图标');
+             }
+         }
+         class Factory{
+             createButton() {}
+             createIcon() {}
+         }
+         class AppleFactory{
+             createButton() {
+                 return new AppleButton();
+             }
+             createIcon() {
+                 return new AppleButton();
+             }
+         }
+         class WindowsFactory{
+             createButton() {
+                 return new WindowButton();
+             }
+             createIcon() {
+                 return new WindowIcon();
+             }
+         }
+         const settings={
+             'apple': AppleFactory,
+             'windows':WindowsFactory
+         }
+         let appleFactory=new settings['apple']();
+         appleFactory.createButton().render();
+         appleFactory.createIcon().render();
+         let windowsFactory=new settings['windows']();
+         windowsFactory.createButton().render();
+         windowsFactory.createIcon().render();
          
  ```
          
@@ -154,198 +212,197 @@ console.log(orange);
   * 缺点：扩展性不好；灵活性不好；储存同一个位置，修改属性值慎重。
   
 ```
-// typescript 
-class Window {
-    constructor(name) {
-        this.name = name;
-    }
-    static getInstance(name) {
-        if (!this.instance) {
-            this.instance = new Window(name);
+    // typescript 
+    class Window {
+        constructor(name) {
+            this.name = name;
         }
-        return this.instance;
-    }
-}
-
-var w1 = Window.getInstance();
-var w2 = Window.getInstance();
-console.log(w1 === w2);
-
-```
-
-```
-//ES5单例模式
-let  Window = function(name) {
-    this.name=name;
-}
-Window.prototype.getName=function () {
-    console.log(this.name);
-}
-Window.getInstance=(function () {
-    let window=null;
-    return function (name) {
-        if (!window)
-           window=new Window(name);
-        return window;
-    }
-})();
-let window=Window.getInstance('zfpx');
-window.getName();
-
-```
-
-
-```
-//透明单例
-let Window=(function () {
-    let window;
-    let Window=function (name) {
-        if (window) {
-            return window;
-        } else {
-            this.name=name;
-            return (window=this);
+        static getInstance(name) {
+            if (!this.instance) {
+                this.instance = new Window(name);
+            }
+            return this.instance;
         }
+    }
+
+    var w1 = Window.getInstance();
+    var w2 = Window.getInstance();
+    console.log(w1 === w2);
+
+```
+
+```
+    //ES5单例模式
+    let  Window = function(name) {
+        this.name=name;
     }
     Window.prototype.getName=function () {
         console.log(this.name);
     }
-    return Window;
-})();
-
-let window1=new Window('zfpx');
-let window2=new Window('zfpx');
-window1.getName();
-console.log(window1 === window2)
-
-```
-
-```
-//单例与构建分离
-function Window(name) {
-    this.name=name;
-}
-Window.prototype.getName=function () {
-    console.log(this.name);
-}
-
-let createSingle=(function () {
-    let instance;
-    return function (name) {
-        if (!instance) {
-            instance=new Window();
+    Window.getInstance=(function () {
+        let window=null;
+        return function (name) {
+            if (!window)
+               window=new Window(name);
+            return window;
         }
-        return instance;
+    })();
+    let window=Window.getInstance('zfpx');
+    window.getName();
+
+```
+
+
+```
+   //透明单例
+   let Window=(function () {
+       let window;
+       let Window=function (name) {
+           if (window) {
+               return window;
+           } else {
+               this.name=name;
+               return (window=this);
+           }
+       }
+       Window.prototype.getName=function () {
+           console.log(this.name);
+       }
+       return Window;
+   })();
+
+   let window1=new Window('zfpx');
+   let window2=new Window('zfpx');
+   window1.getName();
+   console.log(window1 === window2)
+
+```
+
+```
+    //单例与构建分离
+    function Window(name) {
+        this.name=name;
     }
-})();
+    Window.prototype.getName=function () {
+        console.log(this.name);
+    }
 
-let window1=new createSingle('zfpx');
-let window2=new createSingle('zfpx');
-window1.getName();
-console.log(window1 === window2)
-
-```
-
-```
-//封装变化
-function Window(name) {
-    this.name=name;
-}
-Window.prototype.getName=function () {
-    console.log(this.name);
-}
-
-let createSingle=function (Constructor) {
-    let instance;
-    return function () {
-        if (!instance) {
-            Constructor.apply(this,arguments);
-            Object.setPrototypeOf(this,Constructor.prototype)
-            instance=this;
+    let createSingle=(function () {
+        let instance;
+        return function (name) {
+            if (!instance) {
+                instance=new Window();
+            }
+            return instance;
         }
-        return instance;
-    }
-};
-let CreateWindow=createSingle(Window);
-let window1=new CreateWindow('zfpx');
-let window2=new CreateWindow('zfpx');
-window1.getName();
-console.log(window1 === window2)
+    })();
+
+    let window1=new createSingle('zfpx');
+    let window2=new createSingle('zfpx');
+    window1.getName();
+    console.log(window1 === window2)
+```
+
+```
+     //封装变化
+     function Window(name) {
+         this.name=name;
+     }
+     Window.prototype.getName=function () {
+         console.log(this.name);
+     }
+
+     let createSingle=function (Constructor) {
+         let instance;
+         return function () {
+             if (!instance) {
+                 Constructor.apply(this,arguments);
+                 Object.setPrototypeOf(this,Constructor.prototype)
+                 instance=this;
+             }
+             return instance;
+         }
+     };
+     let CreateWindow=createSingle(Window);
+     let window1=new CreateWindow('zfpx');
+     let window2=new CreateWindow('zfpx');
+     window1.getName();
+     console.log(window1 === window2)
 
 ```
 
 ```
-应用场景：
-function createStore(reducer) {
-    let state;
-    let listeners=[];
-    function getState() {
-        return state;
-    }
-    function dispatch(action) {
-        state=reducer(state,action);
-        listeners.forEach(l=>l());
-    }
-    function subscribe(listener) {
-        listeners.push(listener);
-        return () => {
-            listeners = listeners.filter(item => item!=listener);
-            console.log(listeners);
-        }
-    }
-    dispatch({});
-    return {
-        getState,
-        dispatch,
-        subscribe
-    }
-}
-let store = createStore();
+  //应用场景：
+  function createStore(reducer) {
+      let state;
+      let listeners=[];
+      function getState() {
+          return state;
+      }
+      function dispatch(action) {
+          state=reducer(state,action);
+          listeners.forEach(l=>l());
+      }
+      function subscribe(listener) {
+          listeners.push(listener);
+          return () => {
+              listeners = listeners.filter(item => item!=listener);
+              console.log(listeners);
+          }
+      }
+      dispatch({});
+      return {
+          getState,
+          dispatch,
+          subscribe
+      }
+  }
+  let store = createStore();
 
 ```
 
 ```
-// 应用场景
-class Login{
-    constructor() {
-        this.element=document.createElement('div');
-        this.element.innerHTML=(
-            `
-            用户名 <input type="text"/>
-            <button>登录</button>
-            `
-        );
-        this.element.style.cssText='width: 100px; height: 100px; position: absolute; left: 50%; top: 50%; display: block;';
-        /* this.element.style.width='100px';
-        this.element.style.height='100px';
-        this.element.style.position='absolute';
-        this.element.style.left='50%';
-        this.element.style.top='50%'; */
-        document.body.appendChild(this.element);
-    }
-    show() {
-        this.element.style.display='block';
-    }
-    hide() {
-        this.element.style.display='none';
-    }
-}
-Login.getInstance=(function () {
-    let instance;
-    return function () {
-        if (!instance) {
-            instance=new Login();
-        }
-        return instance;
-    }
-})();
+   // 应用场景
+   class Login{
+       constructor() {
+           this.element=document.createElement('div');
+           this.element.innerHTML=(
+               `
+               用户名 <input type="text"/>
+               <button>登录</button>
+               `
+           );
+           this.element.style.cssText='width: 100px; height: 100px; position: absolute; left: 50%; top: 50%; display: block;';
+           /* this.element.style.width='100px';
+           this.element.style.height='100px';
+           this.element.style.position='absolute';
+           this.element.style.left='50%';
+           this.element.style.top='50%'; */
+           document.body.appendChild(this.element);
+       }
+       show() {
+           this.element.style.display='block';
+       }
+       hide() {
+           this.element.style.display='none';
+       }
+   }
+   Login.getInstance=(function () {
+       let instance;
+       return function () {
+           if (!instance) {
+               instance=new Login();
+           }
+           return instance;
+       }
+   })();
 
-document.getElementById('showBtn').addEventListener('click',function (event) {
-    Login.getInstance().show();
-});
-document.getElementById('hideBtn').addEventListener('click',function (event) {
-    Login.getInstance().hide();
-});
+   document.getElementById('showBtn').addEventListener('click',function (event) {
+       Login.getInstance().show();
+   });
+   document.getElementById('hideBtn').addEventListener('click',function (event) {
+       Login.getInstance().hide();
+   });
 
 ```
 
@@ -355,97 +412,98 @@ document.getElementById('hideBtn').addEventListener('click',function (event) {
 * 应用场景
 
 ```
-// 插件适配 适配参数、后端接口数据
-function ajax(options){
-  let _default = {
-      method:'GET',
-      dataType:'json'
-  }
-  for(let attr in options){
-    _default[attr] = options[attr]||_default[attr];
-  }
-}
+   // 插件适配 适配参数、后端接口数据
+   function ajax(options){
+     let _default = {
+         method:'GET',
+         dataType:'json'
+     }
+     for(let attr in options){
+       _default[attr] = options[attr]||_default[attr];
+     }
+   }
 
-function get(url){
-  let options = {method:'GET',url};
-  ajax(options);
-}
+   function get(url){
+     let options = {method:'GET',url};
+     ajax(options);
+   }
 ```
 
 ```
-//promisify
-let fs=require('fs');
-function promisify(readFile) {
-    return function (filename,encoding) {
-        return new Promise(function (resolve,reject) {
-            readFile(filename,encoding,function (err,data) {
-                if (err)
-                    reject(err);
-                else
-                    resolve(data);
-            })
-        });
-    }
-}
-let readFile=promisify(fs.readFile);
-readFile('./1.txt','utf8').then(data => console.log(data));
-
-```
-
-```
-//jquery
-let $=require('jquery');
-$.ajax({
-    url,
-    type: 'POST',
-    dataType: 'json',
-    data:{id:1}
-});
-
-let $={
-    ajax(options) {
-        fetch(options.url,{
-            method: options.type,
-            body:JSON.stringify(options.data)
-        })
-    }
-}
-
-```
-
-```
-// computed
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdn.bootcss.com/vue/2.5.17/vue.js"></script>
-    <title>vue</title>
-</head>
-<body>
-<div id="root">
-<p>{{name}}</p>
-<p>{{upperName}}</p>
-</div>    
-<script>
-let vm=new Vue({
-    el: '#root',
-    data: {
-        name:'zfpx'
-    },
-    computed: {
-        upperName() {
-            return this.name.toUpperCase();
+    //promisify
+    let fs=require('fs');
+    function promisify(readFile) {
+        return function (filename,encoding) {
+            return new Promise(function (resolve,reject) {
+                readFile(filename,encoding,function (err,data) {
+                    if (err)
+                        reject(err);
+                    else
+                        resolve(data);
+                })
+            });
         }
     }
-});
-</script>
-</body>
-</html>
+    let readFile=promisify(fs.readFile);
+    readFile('./1.txt','utf8').then(data => console.log(data));
 
 ```
+
+```
+  //jquery
+  let $=require('jquery');
+  $.ajax({
+      url,
+      type: 'POST',
+      dataType: 'json',
+      data:{id:1}
+  });
+
+  let $={
+      ajax(options) {
+          fetch(options.url,{
+              method: options.type,
+              body:JSON.stringify(options.data)
+          })
+      }
+  }
+
+```
+
+```
+   // computed
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <meta http-equiv="X-UA-Compatible" content="ie=edge">
+       <script src="https://cdn.bootcss.com/vue/2.5.17/vue.js"></script>
+       <title>vue</title>
+   </head>
+   <body>
+   <div id="root">
+   <p>{{name}}</p>
+   <p>{{upperName}}</p>
+   </div>    
+   <script>
+   let vm=new Vue({
+       el: '#root',
+       data: {
+           name:'zfpx'
+       },
+       computed: {
+           upperName() {
+               return this.name.toUpperCase();
+           }
+       }
+   });
+   </script>
+   </body>
+   </html>
+
+```
+
 ## 六、装饰器（decorator）模式 ##
 
 * 含义：装饰器是将一个对象嵌入另一个对象之中，实际上相当于这个对象被另一个对象包括起来，形成一条包装链条，请求随着这条链条依次传递到所有对象，每个对象都有处理这个请求的机会。
@@ -453,64 +511,64 @@ let vm=new Vue({
 * 优点:装饰比继承更加灵活
 * 缺点
 
+ ```
+   // 基本代码
+   class Duck{
+       eat(food) {
+           console.log('吃${food}');
+       }
+   }
+
+   class TangDuck{
+       constructor() {
+           this.duck=new Duck();
+       }
+       eat() {
+           this.duck.eat();
+           console.log('谢谢');
+       }
+   }
+
+ ```
+
 ```
-// 基本代码
-class Duck{
-    eat(food) {
-        console.log('吃${food}');
-    }
-}
-
-class TangDuck{
-    constructor() {
-        this.duck=new Duck();
-    }
-    eat() {
-        this.duck.eat();
-        console.log('谢谢');
-    }
-}
-
-```
-
-```
-// 包装器
-class Coffee{
-  make(water){
-    return `${water}+咖啡`;
-  }
-  cost(){
-      return 10;
-  }
-}
-
-class MilkCoffee{
-    constructor(parent){
-        this.parent = parent;
-    }
+  // 包装器
+  class Coffee{
     make(water){
-        return `${this.parent.make(water)}+牛奶`;
+      return `${water}+咖啡`;
     }
     cost(){
-        return this.parent.cost()+1;
+        return 10;
     }
-}
+  }
 
-class SugerCoffee{
-    constructor(parent){
-        this.parent = parent;
-    }
-    make(water){
-        return `${this.parent.make(water)}+糖`;
-    }
-    cost(){
-        return this.parent.cost()+2;
-    }
-}
-let coffee = new Coffee();
-let milkCoffee = new MilkCoffee(coffee);
-let milksugerCoffee = new SugerCoffee(milkCoffee);
-console.log(milksugerCoffee.make('水')+'='+milksugerCoffee.cost());
+  class MilkCoffee{
+      constructor(parent){
+          this.parent = parent;
+      }
+      make(water){
+          return `${this.parent.make(water)}+牛奶`;
+      }
+      cost(){
+          return this.parent.cost()+1;
+      }
+  }
+
+  class SugerCoffee{
+      constructor(parent){
+          this.parent = parent;
+      }
+      make(water){
+          return `${this.parent.make(water)}+糖`;
+      }
+      cost(){
+          return this.parent.cost()+2;
+      }
+  }
+  let coffee = new Coffee();
+  let milkCoffee = new MilkCoffee(coffee);
+  let milksugerCoffee = new SugerCoffee(milkCoffee);
+  console.log(milksugerCoffee.make('水')+'='+milksugerCoffee.cost());
 
 ```
 
@@ -570,7 +628,7 @@ console.log(milksugerCoffee.make('水')+'='+milksugerCoffee.cost());
 * 代理模式 VS 装饰器模式：装饰器模式原来的功能不变还可以使用，代理模式改变了原来的功能。
 * es7代理：Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。Proxy 这个词的原意是代理，用在这里表示由它来“代理”某些操作，可以译为“代理器”
 
-`````
+```
 // 基本代理模式
 class Goole{
     constructor() {    }
@@ -590,9 +648,9 @@ class Proxy {
 let proxy = new Proxy();
 let ret = proxy.get();
 console.log(ret);
-`````
+```
 
-````
+```
 // 案例一事件委托（自上而下）
 <body>
     <ul id="list">
@@ -607,9 +665,9 @@ console.log(ret);
   });     
 </script>    
 </body>
-````
+```
 
-`````
+```
 // 防抖代理
 <body>
     <ul id="todos">
@@ -647,7 +705,7 @@ console.log(ret);
         LazyToggle(id);
     });
 </script>
-`````
+```
 
 ```
 //es7api
@@ -718,6 +776,7 @@ class Computer{
     }
 }
 new Computer().start();
+
 ```
 
     
@@ -968,6 +1027,7 @@ getFlashUploadObj, getHtml5UploadObj, getFormUpladObj );
 * 含义：允许一个对象在其内部状态改变的时候改变它的行为，对象看起来似乎修改了它的类。
 其实就是用一个对象或者数组记录一组状态，每个状态对应一个实现，实现的时候根据状态挨个去运行实现。
 * 应用场景：可以少用if...else switch,
+
 ```
 //基本代码
 class SuperMarry {
@@ -999,7 +1059,7 @@ new SuperMarry()
     .go()                    // 触发动作  跳跃!  射击!
     .change(['squat'])
     .go()                    // 触发动作  蹲下!
-````
+```
 
 ```
 //react 导航
@@ -1166,6 +1226,7 @@ form.onsubmit = function(){
 原型链：访问一个对象的属性时，先在基本属性中查找，如果没有，再沿着proto这条链向上找。可以通过hasOwnProperty区分一个属性是来自于自己还是原型。
 优点： 可以随意扩展、可以重写继承的方法。多个实例可以共享原型上的属性和方法
 缺点: 修改原型上的一些引用属性，所有实例对应的属性也将被改变，这样可能带来一些问题
+
 ```
 //基本代码
 function Person(){
@@ -1177,7 +1238,7 @@ Person.prototype.getName = funciton(){
 let p1 = new Person('张三');
 let p2=new Person('李四');
 console.log(p1.getName===p2.getName);
- ```
+```
  
 ```
 // 场景：
@@ -1536,6 +1597,7 @@ folder.show();
 vueFolder.remove();
 folder.show();
 ```
+
 ## 十六、命令（command）模式 ##
 * 含义：执行命令时候将发布者和执行者分开，中间加入命令对象作为中间站。有个三个角色
     * receiver(接受者角色)：干活角色，执行具体功能
@@ -1902,6 +1964,7 @@ class ConfirmDialog extends Dialog{
     * 1、不可以保证某个请求一定会被链中的节点处理（链尾离开，抛出一个异常）
     * 2、有时候一些节点没有起到实质性的作用，仅仅是传递下了，过长得职责链带来了性能损耗。
 * 应用场景：电商订单、审批流程
+
 ```
 class Employee{
     constructor(next) {
@@ -2047,8 +2110,6 @@ boy.mediator=mediator;
 girl.mediator=mediator;
 boy.learnGirl(); // 这个女孩年龄18
 girl.learnBoy(); // 这个男孩月薪10000
-
-
 
 ```
 ## 二十二、访问者（visitor）模式 ##
