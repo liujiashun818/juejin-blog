@@ -43,23 +43,25 @@
     * DOM-Based型XSS。不需要服务端参与，是由于DOM结构修改导致的，基于浏览器DOM解析的攻击。
     浏览器在DOM解析的时候直接使用恶意数据，常见的触发场景就是在修改innerHTML outerHTML document.write的时候。
        * 解决办法，过滤输入
+       
     ```
-    // DOM-Based
-    <body>
-    <h1>输入链接地址，然后点击按钮</h1>
-    <div id="content"></div>
-    <input type="text" id="link">
-    <button onclick="setup()">设置</button>
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-    <script>
-        function setup() {
-            // " onclick=alert(1) //
-            let html = `<a href="${$('#link').val()}">点我</a>`;
-            $('#content').html(html);
-        }
-    </script>
-    </body>
+        DOM-Based
+        <body>
+        <h1>输入链接地址，然后点击按钮</h1>
+        <div id="content"></div>
+        <input type="text" id="link">
+        <button onclick="setup()">设置</button>
+        <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+        <script>
+            function setup() {
+                // " onclick=alert(1) //
+                let html = `<a href="${$('#link').val()}">点我</a>`;
+                $('#content').html(html);
+            }
+        </script>
+        </body>
     ```
+    
     * payload XSS。窃取用户的Cookie，识别浏览器，钓鱼链接让用户访问假冒网站。
 * 2、跨站请求伪造CSRF（Cross-site request forgery） 
     * 含义：跨站点请求伪造。  用户A登录银行网站，登录成功后会设置cookie，黑客诱导用户A登录到黑客的站点，然后会返回一个页面 ，用户访问这个页面时，这个页面会伪造一个转账请求到银行网站。
