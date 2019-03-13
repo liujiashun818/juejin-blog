@@ -1862,94 +1862,91 @@ class Jiangwen extends Person{
 }
 let j=new Jiangwen();
 j.dinner();
-```
 
 ```
-// 公共模板弹框
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="3.css">
-</head>
-<body>
+```
+   // 公共模板弹框
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <meta http-equiv="X-UA-Compatible" content="ie=edge">
+       <title>Document</title>
+       <link rel="stylesheet" href="3.css">
+   </head>
+   <body>
 
-<script src="3.js"></script>    
-<script>
-let dialog = new ConfirmDialog({
-    title:'标题',
-    content:'内容'
-});
-</script>
-</body>
-</html>
-class Dialog{
-    constructor(options) {
-        this.title = options.title||'标题';
-        this.content = options.content||'内容';
-        this.onConfirm = options.onConfirm||this.hide;
-        this.onCancel = options.onCancel||this.hide;
-        this.init();
-        this.initEventHandler();
-    }
-    init() {
-        this.panel=document.createElement('div');
-        this.panel.className='dialog';
+   <script src="3.js"></script>    
+   <script>
+   let dialog = new ConfirmDialog({
+       title:'标题',
+       content:'内容'
+   });
+   </script>
+   class Dialog{
+       constructor(options) {
+           this.title = options.title||'标题';
+           this.content = options.content||'内容';
+           this.onConfirm = options.onConfirm||this.hide;
+           this.onCancel = options.onCancel||this.hide;
+           this.init();
+           this.initEventHandler();
+       }
+       init() {
+           this.panel=document.createElement('div');
+           this.panel.className='dialog';
 
-        this.titleP=document.createElement('p');
-        this.titleP.innerHTML=this.title;
-        this.panel.appendChild(this.titleP);
+           this.titleP=document.createElement('p');
+           this.titleP.innerHTML=this.title;
+           this.panel.appendChild(this.titleP);
 
-        this.contentP=document.createElement('p');
-        this.contentP.innerHTML=this.content;
-        this.panel.appendChild(this.contentP);
+           this.contentP=document.createElement('p');
+           this.contentP.innerHTML=this.content;
+           this.panel.appendChild(this.contentP);
 
-        this.confirmBtn=document.createElement('button');
-        this.confirmBtn.className='button confirm-button';
-        this.confirmBtn.innerHTML='确定';
-        this.panel.appendChild(this.confirmBtn);
+           this.confirmBtn=document.createElement('button');
+           this.confirmBtn.className='button confirm-button';
+           this.confirmBtn.innerHTML='确定';
+           this.panel.appendChild(this.confirmBtn);
 
-        this.cancelBtn=document.createElement('button');
-        this.cancelBtn.className='button cancel-button';
-        this.cancelBtn.innerHTML='取消';
-        this.panel.appendChild(this.cancelBtn);
+           this.cancelBtn=document.createElement('button');
+           this.cancelBtn.className='button cancel-button';
+           this.cancelBtn.innerHTML='取消';
+           this.panel.appendChild(this.cancelBtn);
 
-        document.body.appendChild(this.panel);
-    }
-    inithttp://image.bubuko.com/info/201807/20180712173511381297.pngntListener('click',() => {
-            this.onConfirm();
-            this.hide();
-        });
-        this.cancelBtn.addEventListener('click',() => {
-            this.onCancel();
-            this.hide();
-        });
-    }
-    show() {
-        this.panel.style.display='block';
-    }
-    hide() {
-        this.panel.style.display='none';
-    }
-}
+           document.body.appendChild(this.panel);
+       }
+       init() {
+           this.cancelBtn.addEventListener('click',() => {
+               this.onConfirm();
+               this.hide();
+           });
+           this.cancelBtn.addEventListener('click',() => {
+               this.onCancel();
+               this.hide();
+           });
+       }
+       show() {
+           this.panel.style.display='block';
+       }
+       hide() {
+           this.panel.style.display='none';
+       }
+   }
 
-class ContentDialog extends Dialog{
-    init() {
-        super.init();
-        this.titleP.parentNode.removeChild(this.titleP);
-    }
-}
+   class ContentDialog extends Dialog{
+       init() {
+           super.init();
+           this.titleP.parentNode.removeChild(this.titleP);
+       }
+   }
 
-class ConfirmDialog extends Dialog{
-    init() {
-        super.init();
-        this.cancelBtn.parentNode.removeChild(this.cancelBtn);
-    }
-}
+   class ConfirmDialog extends Dialog{
+       init() {
+           super.init();
+           this.cancelBtn.parentNode.removeChild(this.cancelBtn);
+       }
+   }
 
 ```
 
