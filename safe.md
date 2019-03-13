@@ -66,6 +66,7 @@
 * 2、跨站请求伪造CSRF（Cross-site request forgery） 
     * 含义：跨站点请求伪造。  用户A登录银行网站，登录成功后会设置cookie，黑客诱导用户A登录到黑客的站点，然后会返回一个页面 ，用户访问这个页面时，这个页面会伪造一个转账请求到银行网站。
     * 解决办法1 验证码（影响用户体验） 类库（svgCaptcha），刷新的时候后端生成验证码发送给前端，前端保存到session（或者仅仅显示）中，请求的时候带过去（参数），相同服务端就返回，否则就拒绝。
+    
     ```
     <div class="form-group">
         <label for="captcha" id="captcha"></label>
@@ -100,7 +101,9 @@
     });
     
     ```
+    
     * 解决办法2、refer验证（不可靠）
+    
      ```
       let referer = req.headers['referer'];
         if (/^https?:\/\/localhost:3000/.test(referer)) {
@@ -110,6 +113,7 @@
         }
      ```
      * 解决办法3 token验证（推荐）服务端生成token传给浏览器，交互的时候，判断是否相同。token有很多种生成方式，比如cookie或者sessionId,规则前后端双方约定好。 不容易被伪造，一次性的，
+     
      ```
      function getClientToken() {
             let result = document.cookie.match(/token=([^;]+)/);
