@@ -444,9 +444,11 @@ function selectionSort(arr) {
    }
    ```
    
-   5、归并排序（稳定性）分而治之思想，表现比选择排序好的多，代价是需要额外的内存空间。
-     ```
-     function mergeSort(arr) {  //采用自上而下的递归方法
+   5、归并排序（稳定性）分而治之思想，表现比选择排序好的多，代价是需要额外的内存空间。  
+   
+    ```
+    //采用自上而下的递归方法
+     function mergeSort(arr) {  
           var len = arr.length;
           if(len < 2) {
               return arr;
@@ -457,8 +459,7 @@ function selectionSort(arr) {
           return merge(mergeSort(left), mergeSort(right));
       }
 
-      function merge(left, right)
-      {
+      function merge(left, right){
           var result = [];
 
           while (left.length && right.length) {
@@ -477,8 +478,11 @@ function selectionSort(arr) {
 
           return result;
       }
-     ```
-   6、快速排序（不稳定）分而治之思想，是在冒泡排序基础上的递归分治法，快效率高，
+      
+    ```  
+    
+   6、快速排序（不稳定）分而治之思想，是在冒泡排序基础上的递归分治法，快效率高   
+   
    ```
    function quickSort(arr, left, right) {
           var len = arr.length,
@@ -513,9 +517,11 @@ function selectionSort(arr) {
           arr[j] = temp;
       }
    ```
+   
    7、堆排序（不稳定）利用堆的概念莱排序的选择排序，分两种方法，
      * 大顶堆：每个节点的值都大于或等于其子节点的值，在堆排序算法中用于升序排列
-     * 小顶堆：每个节点的值都小于或等于其子节点的值，在堆排序算法中用于降序排列
+     * 小顶堆：每个节点的值都小于或等于其子节点的值，在堆排序算法中用于降序排列   
+     
      ```
      var len;    //因为声明的多个函数都需要数据长度，所以把len设置成为全局变量
 
@@ -560,9 +566,12 @@ function selectionSort(arr) {
               heapify(arr, 0);
           }
           return arr;
-      }
+      }   
      ```
+     
    8、计数排序（稳定）核心在于将输入的数据转化为键存储在额外开辟的数组空间中，这是一种线性时间复杂度的排序，输入的数据必须有确定范围的整数。
+   
+   
    ```
    function countingSort(arr, maxValue) {
        var bucket = new Array(maxValue+1),
@@ -586,12 +595,16 @@ function selectionSort(arr) {
 
        return arr;
    }
-   ```
+   
+   ```  
+   
+   
    9、桶排序（稳定）也是计数排序的升级版，利用了函数的映射关系，这个函数决定是否高效。高效的两点：
       * 尽量增大桶的数量（额外空间充足的情况）
       * 使用映射函数能够将输入的N个数据均匀的分配到n个桶中。
       * 最快：数据均匀的分配到每个桶中
       * 最慢：数据被分配到了同一个桶中了。
+      
      ```
      function bucketSort(arr, bucketSize) {
           if (arr.length === 0) {
