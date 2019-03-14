@@ -367,7 +367,7 @@
    
  ```
 * 4.3 十大经典排序算法：
-  * 1、冒泡排序（稳定）：正序，比较相邻的两个元素的位置，如果前面的大于后面的，就叫换位置。
+  * 1、冒泡排序（稳定）：正序，比较相邻的两个元素的位置，如果前面的大于后面的，就交换换位置。
   ```
   function bubbleSort(arr) {
     var len = arr.length;
@@ -383,7 +383,7 @@
     return arr;
 }
   ```
-  * 2、选择排序（不稳定）：从数组内遍历出最大值，加入新数组，将最大值从原数组中删除，重复上述操作，最后得出的新数组就是一个从大到小排序的数组了。  
+  * 2、选择排序（不稳定）：双重遍历当前数组，第二层遍历获取除了当前（++）的值，找到最小的，然后和当前的交换位置，依次到最后一个。
 
 ```
 function selectionSort(arr) {
@@ -396,22 +396,277 @@ function selectionSort(arr) {
                 minIndex = j;                 //将最小数的索引保存
             }
         }
-        temp = arr[i];
-        arr[i] = arr[minIndex];
-        arr[minIndex] = temp;
+        temp = arr[i]; //  暂存 当前的值
+        arr[i] = arr[minIndex]; // 当前位置放最小的值
+        arr[minIndex] = temp; // 最小的位置放放当前的值
     }
     return arr;
 }
 
 ```
-   3、插入排序（稳定）
-   4、希尔排序（不稳定）
-   5、归并排序（稳定）
-   6、快速排序（不稳定）
-   7、堆排序（不稳定）
-   8、计数排序（稳定）
-   9、桶排序（稳定）
-   10、基数排序（稳定）
+   3、插入排序（稳定）：类似于扑克牌整理牌，遍历后，获取当前的值（current）和前一个值（比较的目标值preIndex）的下标，用while循环，对比current和arr[preIndex]的大小，如果前一个值小于当前的值，则arr[preIndex+1] = arr[preIndex],通过preIndex--,和以前遍历的都互相比较。循环外部arr[preIndex+1] = current;
+   ```
+   function insertionSort(arr){
+      let len = arr.length;
+      let preIndex, current;
+      for(var i = 1; i < len.length; i++){ // 往前遍历
+         preIndex = i - 1; //前一个值，不是当前的值。
+         current = arr[i];
+         while（preIndex >= 0 && arr[preIndex] > current ） { // 如果前一个值大于当前的值，
+            arr[preIndex+1] = arr[preIndex];
+            preIndex--； // 往后遍历
+         }
+         arr[preIndex+1] = current;
+      }
+      return arr;
+   }
+   ```
+   4、希尔排序（不稳定）：是插入排序的一种更高效率的实现。和插入排序不同之处在于它会优先比较距离较远的的元素。它的核心在间隔系列的设定，既可以提前设定好间隔系列，也可以动态的定义间隔系列。
+   
+   ```
+   function shellSort(arr) {
+       var len = arr.length,
+           temp,
+           gap = 1;
+       while(gap < len/3) {          //动态定义间隔序列
+           gap =gap * 3+1;
+       }
+       for (gap; gap > 0; gap = Math.floor(gap/3)) {
+           for (var i = gap; i < len; i++) {
+               temp = arr[i];
+               for (var j = i-gap; j >= 0 && arr[j] > temp; j-=gap) {
+                   arr[j+gap] = arr[j];
+               }
+               arr[j+gap] = temp;
+           }
+       }
+       return arr;
+   }
+   ```
+   
+   5、归并排序（稳定性）分而治之思想，表现比选择排序好的多，代价是需要额外的内存空间。
+     ```
+     function mergeSort(arr) {  //采用自上而下的递归方法
+          var len = arr.length;
+          if(len < 2) {
+              return arr;
+          }
+          var middle = Math.floor(len / 2),
+              left = arr.slice(0, middle),
+              right = arr.slice(middle);
+          return merge(mergeSort(left), mergeSort(right));
+      }
+
+      function merge(left, right)
+      {
+          var result = [];
+
+          while (left.length && right.length) {
+              if (left[0] <= right[0]) {
+                  result.push(left.shift());
+              } else {
+                  result.push(right.shift());
+              }
+          }
+
+          while (left.length)
+              result.push(left.shift());
+
+          while (right.length)
+              result.push(right.shift());
+
+          return result;
+      }
+     ```
+   6、快速排序（不稳定）分而治之思想，是在冒泡排序基础上的递归分治法，快效率高，
+   ```
+   function quickSort(arr, left, right) {
+          var len = arr.length,
+              partitionIndex,
+              left = typeof left != 'number' ? 0 : left,
+              right = typeof right != 'number' ? len - 1 : right;
+
+          if (left < right) {
+              partitionIndex = partition(arr, left, right);
+              quickSort(arr, left, partitionIndex-1);
+              quickSort(arr, partitionIndex+1, right);
+          }
+          return arr;
+      }
+
+      function partition(arr, left ,right) {     //分区操作
+          var pivot = left,                      //设定基准值（pivot）
+              index = pivot + 1;
+          for (var i = index; i <= right; i++) {
+              if (arr[i] < arr[pivot]) {
+                  swap(arr, i, index);
+                  index++;
+              }       
+          }
+          swap(arr, pivot, index - 1);
+          return index-1;
+      }
+
+      function swap(arr, i, j) {
+          var temp = arr[i];
+          arr[i] = arr[j];
+          arr[j] = temp;
+      }
+   ```
+   7、堆排序（不稳定）利用堆的概念莱排序的选择排序，分两种方法，
+     * 大顶堆：每个节点的值都大于或等于其子节点的值，在堆排序算法中用于升序排列
+     * 小顶堆：每个节点的值都小于或等于其子节点的值，在堆排序算法中用于降序排列
+     ```
+     var len;    //因为声明的多个函数都需要数据长度，所以把len设置成为全局变量
+
+      function buildMaxHeap(arr) {   //建立大顶堆
+          len = arr.length;
+          for (var i = Math.floor(len/2); i >= 0; i--) {
+              heapify(arr, i);
+          }
+      }
+
+      function heapify(arr, i) {     //堆调整
+          var left = 2 * i + 1,
+              right = 2 * i + 2,
+              largest = i;
+
+          if (left < len && arr[left] > arr[largest]) {
+              largest = left;
+          }
+
+          if (right < len && arr[right] > arr[largest]) {
+              largest = right;
+          }
+
+          if (largest != i) {
+              swap(arr, i, largest);
+              heapify(arr, largest);
+          }
+      }
+
+      function swap(arr, i, j) {
+          var temp = arr[i];
+          arr[i] = arr[j];
+          arr[j] = temp;
+      }
+
+      function heapSort(arr) {
+          buildMaxHeap(arr);
+
+          for (var i = arr.length-1; i > 0; i--) {
+              swap(arr, 0, i);
+              len--;
+              heapify(arr, 0);
+          }
+          return arr;
+      }
+     ```
+   8、计数排序（稳定）核心在于将输入的数据转化为键存储在额外开辟的数组空间中，这是一种线性时间复杂度的排序，输入的数据必须有确定范围的整数。
+   ```
+   function countingSort(arr, maxValue) {
+       var bucket = new Array(maxValue+1),
+           sortedIndex = 0;
+           arrLen = arr.length,
+           bucketLen = maxValue + 1;
+
+       for (var i = 0; i < arrLen; i++) {
+           if (!bucket[arr[i]]) {
+               bucket[arr[i]] = 0;
+           }
+           bucket[arr[i]]++;
+       }
+
+       for (var j = 0; j < bucketLen; j++) {
+           while(bucket[j] > 0) {
+               arr[sortedIndex++] = j;
+               bucket[j]--;
+           }
+       }
+
+       return arr;
+   }
+   ```
+   9、桶排序（稳定）也是计数排序的升级版，利用了函数的映射关系，这个函数决定是否高效。高效的两点：
+      * 尽量增大桶的数量（额外空间充足的情况）
+      * 使用映射函数能够将输入的N个数据均匀的分配到n个桶中。
+      * 最快：数据均匀的分配到每个桶中
+      * 最慢：数据被分配到了同一个桶中了。
+     ```
+     function bucketSort(arr, bucketSize) {
+          if (arr.length === 0) {
+            return arr;
+          }
+
+          var i;
+          var minValue = arr[0];
+          var maxValue = arr[0];
+          for (i = 1; i < arr.length; i++) {
+            if (arr[i] < minValue) {
+                minValue = arr[i];                //输入数据的最小值
+            } else if (arr[i] > maxValue) {
+                maxValue = arr[i];                //输入数据的最大值
+            }
+          }
+
+          //桶的初始化
+          var DEFAULT_BUCKET_SIZE = 5;            //设置桶的默认数量为5
+          bucketSize = bucketSize || DEFAULT_BUCKET_SIZE;
+          var bucketCount = Math.floor((maxValue - minValue) / bucketSize) + 1;   
+          var buckets = new Array(bucketCount);
+          for (i = 0; i < buckets.length; i++) {
+              buckets[i] = [];
+          }
+
+          //利用映射函数将数据分配到各个桶中
+          for (i = 0; i < arr.length; i++) {
+              buckets[Math.floor((arr[i] - minValue) / bucketSize)].push(arr[i]);
+          }
+
+          arr.length = 0;
+          for (i = 0; i < buckets.length; i++) {
+              insertionSort(buckets[i]);                      //对每个桶进行排序，这里使用了插入排序
+              for (var j = 0; j < buckets[i].length; j++) {
+                  arr.push(buckets[i][j]);                      
+              }
+          }
+
+          return arr;
+      }
+     
+     ```
+   10、基数排序（稳定）两种方法：从高位进行排序，从低位进行排序。
+   以下三种排序算法都利用了桶的概念，但对桶的使用方法上有明显差异：
+   * 基数排序：根据键值的每位数字来分配桶
+   * 计数排序：每个桶只存储单一键值
+   * 桶排序：每个桶存储一定范围的数值
+   ```
+   //LSD Radix Sort
+      var counter = [];
+      function radixSort(arr, maxDigit) {
+          var mod = 10;
+          var dev = 1;
+          for (var i = 0; i < maxDigit; i++, dev *= 10, mod *= 10) {
+              for(var j = 0; j < arr.length; j++) {
+                  var bucket = parseInt((arr[j] % mod) / dev);
+                  if(counter[bucket]==null) {
+                      counter[bucket] = [];
+                  }
+                  counter[bucket].push(arr[j]);
+              }
+              var pos = 0;
+              for(var j = 0; j < counter.length; j++) {
+                  var value = null;
+                  if(counter[j]!=null) {
+                      while ((value = counter[j].shift()) != null) {
+                            arr[pos++] = value;
+                      }
+                }
+              }
+          }
+          return arr;
+      }
+   ```
    
  
  
