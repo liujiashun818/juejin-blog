@@ -46,16 +46,17 @@
 * 2、js 浏览器解析到script标签时候，会阻塞其它任务，知道本js文件加载完，这是阻塞的。
     * 2.1、script标签都放到body底部（首屏需要的js文件分离放到head上）
     * 2.2、标签加入 defer
-        ```
+    
+       ```
         <script src="test.js" type="text/javascript" defer></script>
-
-        ```
+       ```
     * 2.3、动态加载js，比如，懒加载/按需加载/路由。
+    
     ```
       function loadScript(url, callback) {
     const script = document.createElement('script')；
     script.type = 'text/javascript';
-    // 处理IE
+    处理IE
     if (script.readyState) {
       script.onreadystatechange = function () {
         if (script.readyState === 'loaded' || script.readyState === 'complete') {
@@ -73,7 +74,7 @@
     document.body.append(script);
   }
 
-  // 动态加载js
+  动态加载js
   loadScript('file.js', function () {
     console.log('加载完成');
   })
@@ -83,13 +84,13 @@
     * 2.6 减少对象成员的查找次数和嵌套深度，共用对象同一个属性时候，用变量引用一次。
     * 2.7 dom操作优化，尽可能用局部变量存储DOM节点。
     ```
-      // 优化前，在每次循环的时候，都要获取id为t的节点，并且设置它的innerHTML
+      优化前，在每次循环的时候，都要获取id为t的节点，并且设置它的innerHTML
   function innerHTMLLoop () {
     for (let count = 0; count < 15000; count++) {
       document.getElementById('t').innerHTML += 'a';
     }
   }
-  // 优化后，
+  优化后，
   function innerHTMLLoop () {
     const tNode = document.getElemenById('t');
     const insertHtml = '';
