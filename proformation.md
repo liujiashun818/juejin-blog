@@ -4,8 +4,9 @@
     * 1.1 首屏优化。首页出现的时间很重要，内联样式渲染速度比link的速度快，建议仅仅首页内联。懒加载（需要再加载）或者预加载（先加载重要内容）。
     * 1.2异步加载。常识：css阻塞浏览器渲染，在css文件没有请求->下载->解析之前，浏览器不会渲染任何已处理的内容（用户也不需要将一个无样式的界面展示给用户）。首屏加载后，加载其它css会阻塞其它html和js的加载。使用一下四种css异步加载。
        * ① js动态创建link元素并插入到DOM中：
-       ```
-       // 创建link标签
+       
+       ``` 创建link标签
+
         const myCSS = document.createElement( "link" );
         myCSS.rel = "stylesheet";
         myCSS.href = "mystyles.css";
@@ -14,14 +15,15 @@
 
        ```
        * ② 利用浏览器加载link标签优先级问题，如果link的media属性值设置为浏览器不识别的类型，就会最后加载它。记得onload后再修改为正常的媒体类型。
+        
         ```
         <link rel="stylesheet" href="mystyles.css" media="顺便起的名字" onload="this.media='all'">
         ```
-        *③ 修改link的rel属性为可选样式表‘alternate’，onload后再恢复正常。
+        * ③ 修改link的rel属性为可选样式表‘alternate’，onload后再恢复正常。
         ```
         <link rel="alternate stylesheet" href="mystyles.css" onload="this.rel='stylesheet'">
         ```
-        *④ 添加新属性rel='preload'含css，as="style"（类型），浏览器有兼容问题。
+        * ④ 添加新属性rel='preload'含css，as="style"（类型），浏览器有兼容问题。
         ```
         <link rel="preload" href="mystyles.css" as="style" onload="this.rel='stylesheet'">
 
