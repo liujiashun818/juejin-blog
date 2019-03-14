@@ -1,7 +1,7 @@
 ### 一、设计模式 ###
   * [设计模式](https://liujiashun818.github.io/web/design.md)
 ### 二、性能优化 ###
-  * [性能优化](https://liujiashun818.github.io/web/propformation.md)
+  * [性能优化](https://liujiashun818.github.io/web/proformation.md)
 ### 三、安全 ###
   * [安全](https://liujiashun818.github.io/web/safe.md)
 ### 四、设计模式简答 ###
