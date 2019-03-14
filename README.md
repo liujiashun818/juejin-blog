@@ -17,9 +17,9 @@
 
   * [安全](https://liujiashun818.github.io/web/safe)  
   
-###  [五、继承](https://liujiashun818.github.io/web/inherit) ###  
+###  [五、原型链和继承](https://liujiashun818.github.io/web/inherit) ###  
 
-  * [继承](https://liujiashun818.github.io/web/inherit)  
+  * [原型链和继承](https://liujiashun818.github.io/web/inherit)  
   
 ###  [六、算法](https://liujiashun818.github.io/web/algorithm) ###  
 
