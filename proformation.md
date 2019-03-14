@@ -14,22 +14,22 @@
         // 插入到header的最后位置
         document.head.insertBefore( myCSS, document.head.childNodes[ document.head.childNodes.length - 1 ].nextSibling );
 
-       ```
+       ```  
       * ② 利用浏览器加载link标签优先级问题，如果link的media属性值设置为浏览器不识别的类型，就会最后加载它。记得onload后再修改为正常的媒体类型。
         
         ```
         <link rel="stylesheet" href="mystyles.css" media="顺便起的名字" onload="this.media='all'">
-        ```
-      * ③ 修改link的rel属性为可选样式表‘alternate’，onload后再恢复正常。
+        ```   
+      * ③ 修改link的rel属性为可选样式表‘alternate’，onload后再恢复正常。   
         ```
         <link rel="alternate stylesheet" href="mystyles.css" onload="this.rel='stylesheet'">
         ```
-      * ④ 添加新属性rel='preload'含css，as="style"（类型），浏览器有兼容问题。
+      * ④ 添加新属性rel='preload'含css，as="style"（类型），浏览器有兼容问题。  
       
         ```
         <link rel="preload" href="mystyles.css" as="style" onload="this.rel='stylesheet'">
-
-        ```
+ 
+        ```   
     * 1.3 webpack/gulp/grunt文件压缩（删除空格）
     * 1.4 注意css书写内功：
      * css规范，删除无用代码，提取公共代码（less/sass）
@@ -82,8 +82,8 @@
     ```
     * 2.4 js文件合并压缩 ((1个100k)time<(4*25k)) 
     * 2.5 经常使用的全局变量引用放到一个局部变量里面，取的时候查找的速度快。作用域链（里到外）。
-    * 2.6 减少对象成员的查找次数和嵌套深度，共用对象同一个属性时候，用变量引用一次。
-    * 2.7 dom操作优化，尽可能用局部变量存储DOM节点。
+    * 2.6 减少对象成员的查找次数和嵌套深度，共用对象同一个属性时候，用变量引用一次。  
+    * 2.7 dom操作优化，尽可能用局部变量存储DOM节点。   
     
     ```
       优化前，在每次循环的时候，都要获取id为t的节点，并且设置它的innerHTML
@@ -103,14 +103,14 @@
   }
 
     ```
-    * 2.8 js操作dom结构时候减少重绘或者重排，最好一次渲染，减少渲染次数。
-    * 2.9 多利用事件委托，利用浏览器冒泡的原理，绑定父组件一次，就可以处理子节点的触发事件。
-    * 2.10 不断运行的代码，setInteval的性能比setTimeout要好。
-    * 2.11 数字转字符串，‘’+1效率>String()>.toString()>new String.
-    * 2.12 小数点转整形，Math.floor(2.33)/Math.round(2.33)>parseInt(2.333).
-    * 2.13 相同类型的声明，组成一个语句，减少脚本的执行时间。
-    * 2.14 字面量(速度)> new Array()/Object()/RegExp()
-    * 2.15 DocumentFragment文档碎片(虚拟节点)，可以先把目标dom结构appendChild到DocumentFragment中,然后再放入body中。大量的DOM更改，innerHTML要比标准的DOM方法快。
+    * 2.8 js操作dom结构时候减少重绘或者重排，最好一次渲染，减少渲染次数。  
+    * 2.9 多利用事件委托，利用浏览器冒泡的原理，绑定父组件一次，就可以处理子节点的触发事件。  
+    * 2.10 不断运行的代码，setInteval的性能比setTimeout要好。  
+    * 2.11 数字转字符串，‘’+1效率>String()>.toString()>new String.  
+    * 2.12 小数点转整形，Math.floor(2.33)/Math.round(2.33)>parseInt(2.333).  
+    * 2.13 相同类型的声明，组成一个语句，减少脚本的执行时间。  
+    * 2.14 字面量(速度)> new Array()/Object()/RegExp()  
+    * 2.15 DocumentFragment文档碎片(虚拟节点)，可以先把目标dom结构appendChild到DocumentFragment中,然后再放入body中。大量的DOM更改，innerHTML要比标准的DOM方法快。  
     ```
     var fra = document.createDocumentFragment();
     for(var i = 0;i<100;i++){
@@ -127,18 +127,18 @@
     };
     document.body.innerHTML = HTML.join('');
     ```
-    *  2.16 删除dom节点时候，同时要删除监听事件，可以删除内存。removeChild和innerHTML=‘’，尽量选择innerHTML。
-    *  2.17 减值迭代。for循环从最大值中开始减值递减更加高效。
-    *  2.18 局部变量更加高效，比如：
+    *  2.16 删除dom节点时候，同时要删除监听事件，可以删除内存。removeChild和innerHTML=‘’，尽量选择innerHTML。  
+    *  2.17 减值迭代。for循环从最大值中开始减值递减更加高效。  
+    *  2.18 局部变量更加高效，比如：  
     ```
     for(var i = 0,len = list.length ; i < len; i++ ){
         // 保存len 可以减少计算的次数
     }
-    ```
-    * 2.19 少用eval; 简单的判断用三目运算符；缩短否定检测(flag != fale)<(!flag);
-    * 2.20 避免和null对比检测;避免全局变量。
-    * 2.21 避免使用全局变量（格式 QUANJU_BIANLIAN）， 
-    ```
+    ```  
+    * 2.19 少用eval; 简单的判断用三目运算符；缩短否定检测(flag != fale)<(!flag);  
+    * 2.20 避免和null对比检测;避免全局变量。  
+    * 2.21 避免使用全局变量（格式 QUANJU_BIANLIAN），   
+    ```  
     //全局变量外边不引用的话，
     (function(){
         var LO = null;
@@ -163,14 +163,14 @@
             change:change
         }
     }
-    ```
-    2.22 js创建的dom对象必须append中页面中，否则刷新页面 IE中不会回收这部分内存。
-    2.23 避免隐式装箱，性能‘stringSome’.length < new String('stringSome').length;
-    2.24 尽量使用原生方式、switch比if语句快（优雅）。
-    3.25单引号和双引号。建议html和JSON中使用双引号，js中使用单引号。
-    3.26 尽可能的多的检查输入的 数据类型（安全性和可用性）。
-    3.27 尽可能的多的使用设计模式，便于维护和扩展。
-    3.28 函数节流和去抖动。 节流是达到了5秒就执行一次，缩减执行频率。去抖是5秒内仅仅执行最后一次，如果5秒又触发了一次，从新计算5秒。
+    ```  
+    2.22 js创建的dom对象必须append中页面中，否则刷新页面 IE中不会回收这部分内存。  
+    2.23 避免隐式装箱，性能‘stringSome’.length < new String('stringSome').length;  
+    2.24 尽量使用原生方式、switch比if语句快（优雅）。  
+    3.25单引号和双引号。建议html和JSON中使用双引号，js中使用单引号。  
+    3.26 尽可能的多的检查输入的 数据类型（安全性和可用性）。  
+    3.27 尽可能的多的使用设计模式，便于维护和扩展。  
+    3.28 函数节流和去抖动。 节流是达到了5秒就执行一次，缩减执行频率。去抖是5秒内仅仅执行最后一次，如果5秒又触发了一次，从新计算5秒。  
     
 * 3、html
     * 3.1 减少iframe的使用，因为iframe会增加一条http请求，阻止页面加载，即使内容为空，加载也需要时间
@@ -182,7 +182,7 @@
     * 3.7 少用（没格式化控制标签）strong，b，i标签、向高版本浏览器兼容，用css控制。
 * 4、react
     * 4.1  shouldComponentUpdate(nextProps,nextState),判断this.state和nextState,判断this.props和nextProps函数判断决定如何更新组件，一旦props或者state有任何变化，都会引起重新render。判断案例如下：
-    react最常用的工具就是PureRenderMixin，使用 npm i react-addons-pure-render-mixin --save,安装并使用：
+    react最常用的工具就是PureRenderMixin，使用 npm i react-addons-pure-render-mixin --save,安装并使用：  
     ```
    import React,{Component} from 'react'
     import PureRenderMixin from 'react-addons-pure-render-mixin'
@@ -194,8 +194,8 @@
         }
         //省略其他代码....
     }
-    ```
-    * 4.2 pureComponent和ImmutableJS想结合,缺点：获取组件属性必须使用get/getIn，比原生的.麻烦，immutableJs56k（体积大）；学习成本；难以调试；如果使用redux-logger,需要配置state.toJs()，pureComponent的原理就是shouldComponentUpdate。使用场景：
+    ```  
+    * 4.2 pureComponent和ImmutableJS想结合,缺点：获取组件属性必须使用get/getIn，比原生的.麻烦，immutableJs56k（体积大）；学习成本；难以调试；如果使用redux-logger,需要配置state.toJs()，pureComponent的原理就是shouldComponentUpdate。使用场景：  
     ```
     class CounterButton extends React.PureComponent {
       constructor(props) {
@@ -213,16 +213,16 @@
         );
       }
     }
-    ```
-    * 4.3  组件拆分；交互少的用存函数（const），无状态操作。静态dom结构写成一个变量，引用一下。
-    * 4.4 少用{...this.props}仅仅传递需要的，太多的话加重负担；
-    * 4.5 建议bind方法放到constructor（性能最好const仅仅绑定一次）或者用箭头函数。
-    * 4.6 map里面key的不要用index（可变的），组件中的key是唯一的，最好都写上。
-    * 4.7 显示和隐藏用return null,而不是display：none。
-    * 4.8 慎用setState，和视图无关的state，不要放到state中：
-    * 4.9 redux性能优化，Selector中间件，缓存机制，可做到尽量少的存储state，
+    ```  
+    * 4.3  组件拆分；交互少的用存函数（const），无状态操作。静态dom结构写成一个变量，引用一下。  
+    * 4.4 少用{...this.props}仅仅传递需要的，太多的话加重负担；  
+    * 4.5 建议bind方法放到constructor（性能最好const仅仅绑定一次）或者用箭头函数。  
+    * 4.6 map里面key的不要用index（可变的），组件中的key是唯一的，最好都写上。  
+    * 4.7 显示和隐藏用return null,而不是display：none。  
+    * 4.8 慎用setState，和视图无关的state，不要放到state中：  
+    * 4.9 redux性能优化，Selector中间件，缓存机制，可做到尽量少的存储state，  
     
-    * 4.10 性能检测工具：[react-perf-tool](https://github.com/RamonGebben/react-perf-tool);官方：React.addons.Perf 
+    * 4.10 性能检测工具：[react-perf-tool](https://github.com/RamonGebben/react-perf-tool);官方：React.addons.Perf   
     
     
     ```
@@ -240,8 +240,8 @@
         <div/>);
       }
     }
-    ```
-    *  4.11 动态传参数可以使用闭包写法,常规写法为将父组件的函数传到子组件。
+    ```  
+    *  4.11 动态传参数可以使用闭包写法,常规写法为将父组件的函数传到子组件。  
     ```
     闭包
       class App extends Component {
@@ -259,7 +259,7 @@
         }
       }
     ```
-* 5、其它
+* 5、其它  
     * 5.1 后端部署：nginx反向代理、负载均衡、cdn
     * 5.2 缓存
      *  请求头 Expires(http1.0) 根据过期时间确定是否加载最新的版本。需要服务器和客户端时间严格同步。
@@ -314,7 +314,7 @@
             }
     ```
     * Plugins : 他直接对整个构建过程起作用，
-    比如：分离css ,html
+    比如：分离css ,html   
     ```
     var ExtractTextPlugin = require('extract-text-webpack-plugin');
     var HTMLWebpackPlugin = require('html-webpack-plugin')
