@@ -3,7 +3,8 @@
 
     * 1.1 首屏优化。首页出现的时间很重要，内联样式渲染速度比link的速度快，建议仅仅首页内联。懒加载（需要再加载）或者预加载（先加载重要内容）。
     * 1.2异步加载。常识：css阻塞浏览器渲染，在css文件没有请求->下载->解析之前，浏览器不会渲染任何已处理的内容（用户也不需要将一个无样式的界面展示给用户）。首屏加载后，加载其它css会阻塞其它html和js的加载。使用一下四种css异步加载。
-       * ① js动态创建link元素并插入到DOM中：
+    
+     * ① js动态创建link元素并插入到DOM中：
        
        ``` 创建link标签
 
@@ -14,7 +15,7 @@
         document.head.insertBefore( myCSS, document.head.childNodes[ document.head.childNodes.length - 1 ].nextSibling );
 
        ```
-       * ② 利用浏览器加载link标签优先级问题，如果link的media属性值设置为浏览器不识别的类型，就会最后加载它。记得onload后再修改为正常的媒体类型。
+      * ② 利用浏览器加载link标签优先级问题，如果link的media属性值设置为浏览器不识别的类型，就会最后加载它。记得onload后再修改为正常的媒体类型。
         
         ```
         <link rel="stylesheet" href="mystyles.css" media="顺便起的名字" onload="this.media='all'">
@@ -30,18 +31,18 @@
         ```
     * 1.3 webpack/gulp/grunt文件压缩（删除空格）
     * 1.4 注意css书写内功：
-        * css规范，删除无用代码，提取公共代码（less/sass）
-        * 少嵌套、避免使用通配符和属性选择器、
-        * 尽量少用耗性能的属性比如、box-shadow/border-radius/filter/filter/:nth-child等
-        *优化重绘和重排：
-            * 触发重排（布局）的属性比如：font-size/font-family/margin/伪类/滚动条/窗口大小,flex性能好些，参考[CSS Trigger](https://csstriggers.com/);
+     * css规范，删除无用代码，提取公共代码（less/sass）
+     * 少嵌套、避免使用通配符和属性选择器、
+     * 尽量少用耗性能的属性比如、box-shadow/border-radius/filter/filter/:nth-child等
+     *优化重绘和重排：
+     * 触发重排（布局）的属性比如：font-size/font-family/margin/伪类/滚动条/窗口大小,flex性能好些，参考[CSS Trigger](https://csstriggers.com/);
             常用技巧：少用table布局、动画元素absolute/fixed/、img设置宽高、
-            * 重绘（颜色）是不可避免的，比如颜色、背景色等，比如scroll触发hover，写动画的时候避免重绘，常用工具[硬件加速](https://www.sitepoint.com/introduction-to-hardware-acceleration-css-animations/)和[will-change](https://drafts.csswg.org/css-will-change/),
+     * 重绘（颜色）是不可避免的，比如颜色、背景色等，比如scroll触发hover，写动画的时候避免重绘，常用工具[硬件加速](https://www.sitepoint.com/introduction-to-hardware-acceleration-css-animations/)和[will-change](https://drafts.csswg.org/css-will-change/),
             常用技巧：开启GPU硬件加速、
-        * 建议使用link代替@import，import影响浏览器并行下载。
-        * 优先使用class，少用id,
-        * 图标处理：cssSprite(雪碧图)，字体图标，把图片转成base64。
-        * body设置最新宽度、防止屏幕变小出现滚动条。
+     * 建议使用link代替@import，import影响浏览器并行下载。
+     * 优先使用class，少用id,
+     * 图标处理：cssSprite(雪碧图)，字体图标，把图片转成base64。
+     * body设置最新宽度、防止屏幕变小出现滚动条。
 * 2、js 浏览器解析到script标签时候，会阻塞其它任务，知道本js文件加载完，这是阻塞的。
     * 2.1、script标签都放到body底部（首屏需要的js文件分离放到head上）
     * 2.2、标签加入 defer
