@@ -369,6 +369,8 @@
 * 4.3 十大经典排序算法：
   * 1、冒泡排序（稳定）：正序，比较相邻的两个元素的位置，如果前面的大于后面的，就交换换位置。  
   
+  ![Image discription](http://upload-images.jianshu.io/upload_images/1867034-e19840224b331fae.gif)
+  
   ```
   function bubbleSort(arr) {
           var len = arr.length;
@@ -385,6 +387,8 @@
       }
   ```
   * 2、选择排序（不稳定）：双重遍历当前数组，第二层遍历获取除了当前（++）的值，找到最小的，然后和当前的交换位置，依次到最后一个。
+  
+  ![Image discription](http://upload-images.jianshu.io/upload_images/1867034-c6cc220cfb2b9ac8.gif)
 
 ```
 function selectionSort(arr) {
@@ -407,6 +411,7 @@ function selectionSort(arr) {
 ```
 * 3、插入排序（稳定）：类似于扑克牌整理牌，遍历后，获取当前的值（current）和前一个值（比较的目标值preIndex）的下标，用while循环，对比current和arr[preIndex]的大小，如果前一个值小于当前的值，则arr[preIndex+1] = arr[preIndex],通过preIndex--,和以前遍历的都互相比较。循环外部arr[preIndex+1] = current;
  
+ ![Image discription](http://upload-images.jianshu.io/upload_images/1867034-d1537e355abdd298.gif)
  
    ```
    function insertionSort(arr){
@@ -448,6 +453,8 @@ function selectionSort(arr) {
    ```
    * 5、归并排序（稳定性）分而治之思想，表现比选择排序好的多，代价是需要额外的内存空间。  
    
+   ![Image discription](http://upload-images.jianshu.io/upload_images/1867034-18c70f637b5c01c2.gif)
+   
     ```
     //采用自上而下的递归方法
      function mergeSort(arr) {  
@@ -484,6 +491,9 @@ function selectionSort(arr) {
     ```  
     
  * 6、快速排序（不稳定）分而治之思想，是在冒泡排序基础上的递归分治法，快效率高   
+ 
+ ![Image discription](http://upload-images.jianshu.io/upload_images/1867034-cd65e35d7dce5045.gif)
+ 
    
    ```
    function quickSort(arr, left, right) {
@@ -523,6 +533,8 @@ function selectionSort(arr) {
 * 7、堆排序（不稳定）利用堆的概念莱排序的选择排序，分两种方法，
    * 大顶堆：每个节点的值都大于或等于其子节点的值，在堆排序算法中用于升序排列
    * 小顶堆：每个节点的值都小于或等于其子节点的值，在堆排序算法中用于降序排列   
+     
+     ![Image discription](http://upload-images.jianshu.io/upload_images/1867034-bf2472770e2258a9.gif)
      
      ```
      var len;    //因为声明的多个函数都需要数据长度，所以把len设置成为全局变量
@@ -573,6 +585,8 @@ function selectionSort(arr) {
      
  * 8、计数排序（稳定）核心在于将输入的数据转化为键存储在额外开辟的数组空间中，这是一种线性时间复杂度的排序，输入的数据必须有确定范围的整数。
    
+    
+   ![Image discription](http://upload-images.jianshu.io/upload_images/1867034-14067a57dd338fe3.gif)
    
    ```
    function countingSort(arr, maxValue) {
@@ -654,7 +668,6 @@ function selectionSort(arr) {
    * 基数排序：根据键值的每位数字来分配桶
    * 计数排序：每个桶只存储单一键值
    * 桶排序：每个桶存储一定范围的数值
-   
    ![Image discription](http://upload-images.jianshu.io/upload_images/1867034-54e33db459fca54f.gif)
    
    ```
