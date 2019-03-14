@@ -24,11 +24,11 @@
     ```
 * 4、Math.floor()和Math.sqrt()
     * Math.floor() 向下取整、返回=<参数。
-        * Math.floor(-5.9) // -6
-        * Math.floor(0.6) // 0
-        * Math.floor(0.4) // 0
+     * Math.floor(-5.9) // -6
+     * Math.floor(0.6) // 0
+     * Math.floor(0.4) // 0
     * Math.sqrt()  平方根必须是正数
-        * var d=Math.sqrt(0.64); // 0.8
+     * var d=Math.sqrt(0.64); // 0.8
     ```
     判断一个数是否是素数
     素数：大于1的自然数，不可以被自然整数（除了1和自己）整除的数。
