@@ -892,8 +892,8 @@ promise.then(() => console.log(2));
 * 场景：对于集合内部结果常常变化各异，我们不想暴露其内部结构的话，但又想让客户代码透明地访问其中的元素，这种情况下我们可以使用迭代器模式。
 * es6 Iterator属性：
     原生部署了遍历接口的数据结构有：Array、Map、Set、String、TypedArray、NodeList、函数的 arguments 对象
-* yield*:  yield*后面跟的是一个可遍历的结构，它会调用该结构的遍历器接口(Iterator)。
-    * 例子：
+* yield:  yield后面跟的是一个可遍历的结构，它会调用该结构的遍历器接口(Iterator)。
+
 ```
 //yield*例子：
     let generator = function* () {
