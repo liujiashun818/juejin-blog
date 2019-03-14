@@ -7,7 +7,7 @@
 ###  四、设计模式简答 ###
   * [简答](https://liujiashun818.github.io/web/design-summary)
 ###  五、继承 ###
-  * [继承](https://liujiashun818.github.io/web/design)
+  * [继承](https://liujiashun818.github.io/web/inherit)
 ###  六、算法 ###
   * [算法](https://liujiashun818.github.io/web/algorithm)
 ###  七、跨域 ###
