@@ -641,7 +641,8 @@ function selectionSort(arr) {
    * 计数排序：每个桶只存储单一键值
    * 桶排序：每个桶存储一定范围的数值
    
-   ![基数排序](//upload-images.jianshu.io/upload_images/1867034-54e33db459fca54f.gif)
+   ![Image discription](http://upload-images.jianshu.io/upload_images/1867034-54e33db459fca54f.gif)
+   
    ```
    //LSD Radix Sort
       var counter = [];
