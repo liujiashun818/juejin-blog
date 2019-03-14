@@ -6,25 +6,26 @@
     
      * ① js动态创建link元素并插入到DOM中：
        
-       ``` 创建link标签
-
+       ```  
+       创建link标签
         const myCSS = document.createElement( "link" );
         myCSS.rel = "stylesheet";
         myCSS.href = "mystyles.css";
         // 插入到header的最后位置
         document.head.insertBefore( myCSS, document.head.childNodes[ document.head.childNodes.length - 1 ].nextSibling );
 
-       ```  
-      * ② 利用浏览器加载link标签优先级问题，如果link的media属性值设置为浏览器不识别的类型，就会最后加载它。记得onload后再修改为正常的媒体类型。
+       ```    
+       
+     * ② 利用浏览器加载link标签优先级问题，如果link的media属性值设置为浏览器不识别的类型，就会最后加载它。记得onload后再修改为正常的媒体类型。
         
         ```
         <link rel="stylesheet" href="mystyles.css" media="顺便起的名字" onload="this.media='all'">
         ```   
-      * ③ 修改link的rel属性为可选样式表‘alternate’，onload后再恢复正常。   
+     * ③ 修改link的rel属性为可选样式表‘alternate’，onload后再恢复正常。   
         ```
         <link rel="alternate stylesheet" href="mystyles.css" onload="this.rel='stylesheet'">
         ```
-      * ④ 添加新属性rel='preload'含css，as="style"（类型），浏览器有兼容问题。  
+     * ④ 添加新属性rel='preload'含css，as="style"（类型），浏览器有兼容问题。  
       
         ```
         <link rel="preload" href="mystyles.css" as="style" onload="this.rel='stylesheet'">
@@ -35,7 +36,7 @@
      * css规范，删除无用代码，提取公共代码（less/sass）
      * 少嵌套、避免使用通配符和属性选择器、
      * 尽量少用耗性能的属性比如、box-shadow/border-radius/filter/filter/:nth-child等
-     *优化重绘和重排：
+     *  优化重绘和重排：
      * 触发重排（布局）的属性比如：font-size/font-family/margin/伪类/滚动条/窗口大小,flex性能好些，参考[CSS Trigger](https://csstriggers.com/);
             常用技巧：少用table布局、动画元素absolute/fixed/、img设置宽高、
      * 重绘（颜色）是不可避免的，比如颜色、背景色等，比如scroll触发hover，写动画的时候避免重绘，常用工具[硬件加速](https://www.sitepoint.com/introduction-to-hardware-acceleration-css-animations/)和[will-change](https://drafts.csswg.org/css-will-change/),
@@ -111,25 +112,25 @@
     * 2.13 相同类型的声明，组成一个语句，减少脚本的执行时间。  
     * 2.14 字面量(速度)> new Array()/Object()/RegExp()  
     * 2.15 DocumentFragment文档碎片(虚拟节点)，可以先把目标dom结构appendChild到DocumentFragment中,然后再放入body中。大量的DOM更改，innerHTML要比标准的DOM方法快。  
-    ```
-    var fra = document.createDocumentFragment();
-    for(var i = 0;i<100;i++){
-        var p = document.createElement('p');
-        p.innerHTML = i;
-        fra.appendChild(p);
-    }
-    document.body.appendChild(fra);
     
-    // 这样更好
-    var HTML = [];
-    for(var i = 0;i<100;i++){
-        HTML.push('<p>'+i+'</p>')
-    };
-    document.body.innerHTML = HTML.join('');
     ```
-    *  2.16 删除dom节点时候，同时要删除监听事件，可以删除内存。removeChild和innerHTML=‘’，尽量选择innerHTML。  
-    *  2.17 减值迭代。for循环从最大值中开始减值递减更加高效。  
-    *  2.18 局部变量更加高效，比如：  
+       var fra = document.createDocumentFragment();
+       for(var i = 0;i<100;i++){
+           var p = document.createElement('p');
+           p.innerHTML = i;
+           fra.appendChild(p);
+       }
+       document.body.appendChild(fra);
+       // 这样更好
+       var HTML = [];
+       for(var i = 0;i<100;i++){
+           HTML.push('<p>'+i+'</p>')
+       };
+       document.body.innerHTML = HTML.join('');
+    ```  
+    * 2.16 删除dom节点时候，同时要删除监听事件，可以删除内存。removeChild和innerHTML=‘’，尽量选择innerHTML。  
+    * 2.17 减值迭代。for循环从最大值中开始减值递减更加高效。  
+    * 2.18 局部变量更加高效，比如：   
     ```
     for(var i = 0,len = list.length ; i < len; i++ ){
         // 保存len 可以减少计算的次数
@@ -313,8 +314,8 @@
                 }
             }
     ```
-    * Plugins : 他直接对整个构建过程起作用，
-    比如：分离css ,html   
+    * Plugins : 他直接对整个构建过程起作用，比如：分离css ,html       
+    
     ```
     var ExtractTextPlugin = require('extract-text-webpack-plugin');
     var HTMLWebpackPlugin = require('html-webpack-plugin')
