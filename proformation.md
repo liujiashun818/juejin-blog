@@ -20,11 +20,12 @@
         ```
         <link rel="stylesheet" href="mystyles.css" media="顺便起的名字" onload="this.media='all'">
         ```
-        * ③ 修改link的rel属性为可选样式表‘alternate’，onload后再恢复正常。
+      * ③ 修改link的rel属性为可选样式表‘alternate’，onload后再恢复正常。
         ```
         <link rel="alternate stylesheet" href="mystyles.css" onload="this.rel='stylesheet'">
         ```
-        * ④ 添加新属性rel='preload'含css，as="style"（类型），浏览器有兼容问题。
+      * ④ 添加新属性rel='preload'含css，as="style"（类型），浏览器有兼容问题。
+      
         ```
         <link rel="preload" href="mystyles.css" as="style" onload="this.rel='stylesheet'">
 
@@ -83,8 +84,9 @@
     * 2.5 经常使用的全局变量引用放到一个局部变量里面，取的时候查找的速度快。作用域链（里到外）。
     * 2.6 减少对象成员的查找次数和嵌套深度，共用对象同一个属性时候，用变量引用一次。
     * 2.7 dom操作优化，尽可能用局部变量存储DOM节点。
+    
     ```
-      优化前，在每次循环的时候，都要获取id为t的节点，并且设置它的innerHTML
+      优化前，在每次循环的时候，都要获取id为t的节点，并且设置它的innerHTML
   function innerHTMLLoop () {
     for (let count = 0; count < 15000; count++) {
       document.getElementById('t').innerHTML += 'a';
@@ -125,9 +127,9 @@
     };
     document.body.innerHTML = HTML.join('');
     ```
-    * 2.16 删除dom节点时候，同时要删除监听事件，可以删除内存。removeChild和innerHTML=‘’，尽量选择innerHTML。
-    * 2.17 减值迭代。for循环从最大值中开始减值递减更加高效。
-    * 2.18 局部变量更加高效，比如：
+    *  2.16 删除dom节点时候，同时要删除监听事件，可以删除内存。removeChild和innerHTML=‘’，尽量选择innerHTML。
+    *  2.17 减值迭代。for循环从最大值中开始减值递减更加高效。
+    *  2.18 局部变量更加高效，比如：
     ```
     for(var i = 0,len = list.length ; i < len; i++ ){
         // 保存len 可以减少计算的次数
@@ -239,30 +241,30 @@
       }
     }
     ```
-    * 4.9 动态传参数可以使用闭包写法,常规写法为将父组件的函数传到子组件。
+    *  4.11 动态传参数可以使用闭包写法,常规写法为将父组件的函数传到子组件。
     ```
-    // 闭包
-class App extends Component {
-  removeCharacter = index => () => {
-    const { list } = this.state;
-    list.splice(index, 1);
-    this.setState({ list });
-  }
-  render() {
-    return (<div>
-      {this.state.list.map((value, index) =>
-        <Child onClick={this.removeCharacter(index)} key={value.id} data={value} />
-      )}
-    </div>);
-  }
-}
+    闭包
+      class App extends Component {
+        removeCharacter = index => () => {
+          const { list } = this.state;
+          list.splice(index, 1);
+          this.setState({ list });
+        }
+        render() {
+          return (<div>
+            {this.state.list.map((value, index) =>
+              <Child onClick={this.removeCharacter(index)} key={value.id} data={value} />
+            )}
+          </div>);
+        }
+      }
     ```
 * 5、其它
     * 5.1 后端部署：nginx反向代理、负载均衡、cdn
     * 5.2 缓存
-        *  请求头 Expires(http1.0) 根据过期时间确定是否加载最新的版本。需要服务器和客户端时间严格同步。
-        *  请求头 Cache-Control（http1.1）克服Expires头的限制。比如：Cache-Control: max-age=3600,以秒为单位，表示会被缓存60分钟
-        *  响应体 Last-Modified,服务器发给浏览器时候带上了Last-Modified或Etag数据，当浏览器再次要这些东西时候，如果是新的则返回304代码，告诉浏览器直接使用本地代码否则下载最新的版本（多用于静态文件）。
+     *  请求头 Expires(http1.0) 根据过期时间确定是否加载最新的版本。需要服务器和客户端时间严格同步。
+     *  请求头 Cache-Control（http1.1）克服Expires头的限制。比如：Cache-Control: max-age=3600,以秒为单位，表示会被缓存60分钟
+     *  响应体 Last-Modified,服务器发给浏览器时候带上了Last-Modified或Etag数据，当浏览器再次要这些东西时候，如果是新的则返回304代码，告诉浏览器直接使用本地代码否则下载最新的版本（多用于静态文件）。
     * 5.3 算法；谷歌浏览器；和后端约定
     * 5.4 高性能的服务器。
 ## 二、webpack ##
