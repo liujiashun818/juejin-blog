@@ -60,15 +60,15 @@
 * push/pop/shift/unshift
     * push  数组尾部添加
     * pop 删除最后一个元素并返回此元素，原来数组改变了长度和内容。
-        * [1,2,3].pop() // 3 ,[1,2,3] 变成了[1,2]
+     * [1,2,3].pop() // 3 ,[1,2,3] 变成了[1,2]
     * shift 删除第一个元素并返回此元素，原来数组改变了长度和内容
-        * [1,2,3].shift() // 1, 原数组变成可[2,3] 
+     * [1,2,3].shift() // 1, 原数组变成可[2,3] 
     * unshift 往数组头部添加元素，并返回长度值
-        * [1,2,3].unshift('add') // 4，原来数组变成了 ['add',1,2,3]
+     * [1,2,3].unshift('add') // 4，原来数组变成了 ['add',1,2,3]
 * map/reduce/reduceRight
     * reduce ：两两处理,前2个的处理结果作为一个参数的值
-        * [1,2,3].reduce((x,y) => x+y) ;// 6
-        * 1+2=3（3成了第一个参数x,第三个参数成了y,依次类推）,3+3=6
+     * [1,2,3].reduce((x,y) => x+y) ;// 6
+     * 1+2=3（3成了第一个参数x,第三个参数成了y,依次类推）,3+3=6
     * reduceRight 从右往左同reduce。 
 * filter 
     * [1,2,3].filter(x=>x>2) //3 
@@ -86,9 +86,9 @@
 
     
     * 插入：
-        * let arr = [1,2,3];  arr.splice(2,0,'ee') // arr = [1,2,'ee',3]
+     * let arr = [1,2,3];  arr.splice(2,0,'ee') // arr = [1,2,'ee',3]
     * 替换：
-        * let arr = [1,2,3];  arr.splice(2,1,'bb') // arr = [1,2,'bb',3] 
+     * let arr = [1,2,3];  arr.splice(2,1,'bb') // arr = [1,2,'bb',3] 
     * 删除并添加：    
         let arr = [1,2,3];
         arr.splice(2,3,'cc')
@@ -108,9 +108,8 @@
     ```
     ['王文成'，'王峰','蒋雪','李明'].sort((a,b) => a.localeCompare(b, 'zh'))
     ```
-* every(fun) 检测数组中的每个元素是否符合函数提供的条件。如果一个元素不满足，，剩余的元素不在检测。 
-
-      ```
+* every(fun) 检测数组中的每个元素是否符合函数提供的条件。如果一个元素不满足剩余的元素不在检测。   
+    ```
          var ages = [32, 33, 16, 40];
          function checkAdult(age) {
              return age >= 18;
@@ -118,7 +117,7 @@
          function myFunction() {
              document.getElementById("demo").innerHTML = ages.every(checkAdult);
          }
-      ```
+    ```
       
 ### 三、迭代器和生成器 ###
  * 迭代器iterator 是一种设计模式，它提供了一种遍历内容的方法，不需要关心内部的构造。生成器（generator）本身也是一种设计模式，用于构造复杂对象，js中的生成器用于构造迭代器。
@@ -290,7 +289,7 @@
    * 缺点： 性能、空间
    * 场景： 数据返回数组。小于1万。
  ### 四、常用算法 ### 
- * 递归 就是自己调用自己
+ * 4.1递归 就是自己调用自己
  
  ```
     //阶乘
@@ -361,6 +360,60 @@
     return Object.keys(propsA).every(key => deepCompare(a[key],b[key]))
 }
  ```
+ * 4.2 二分查找  
+ 
+ ```
+   // 二分查找
+   
+ ```
+* 4.3 十大经典排序算法：
+  * 1、冒泡排序（稳定）：正序，比较相邻的两个元素的位置，如果前面的大于后面的，就叫换位置。
+  ```
+  function bubbleSort(arr) {
+    var len = arr.length;
+    for (var i = 0; i < len; i++) {
+        for (var j = 0; j < len - 1 - i; j++) {// -i 排过序号的就不要再比较了。
+            if (arr[j] > arr[j+1]) {        //相邻元素两两对比,元素交换
+                var temp = arr[j+1];        //temp 暂存小的
+                arr[j+1] = arr[j];          // j+1 是大的
+                arr[j] = temp;              // j 是小的 
+            }
+        }
+    }
+    return arr;
+}
+  ```
+  * 2、选择排序（不稳定）：从数组内遍历出最大值，加入新数组，将最大值从原数组中删除，重复上述操作，最后得出的新数组就是一个从大到小排序的数组了。  
+
+```
+function selectionSort(arr) {
+    var len = arr.length;
+    var minIndex, temp;
+    for (var i = 0; i < len - 1; i++) {
+        minIndex = i;
+        for (var j = i + 1; j < len; j++) {
+            if (arr[j] < arr[minIndex]) {     //寻找最小的数
+                minIndex = j;                 //将最小数的索引保存
+            }
+        }
+        temp = arr[i];
+        arr[i] = arr[minIndex];
+        arr[minIndex] = temp;
+    }
+    return arr;
+}
+
+```
+   3、插入排序（稳定）
+   4、希尔排序（不稳定）
+   5、归并排序（稳定）
+   6、快速排序（不稳定）
+   7、堆排序（不稳定）
+   8、计数排序（稳定）
+   9、桶排序（稳定）
+   10、基数排序（稳定）
+   
+ 
  
  
   
