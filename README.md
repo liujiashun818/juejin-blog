@@ -17,15 +17,19 @@
 
   * [安全](https://liujiashun818.github.io/web/safe)  
   
-###  [五、原型链和继承](https://liujiashun818.github.io/web/inherit) ###  
+###  [五、继承](https://liujiashun818.github.io/web/inherit) ###  
 
-  * [原型链和继承](https://liujiashun818.github.io/web/inherit)  
+  * [继承](https://liujiashun818.github.io/web/inherit)  
+ 
+###  [六、原型链](https://liujiashun818.github.io/web/prototype) ###  
+
+  * [原型链](https://liujiashun818.github.io/web/prototype)   
   
-###  [六、算法](https://liujiashun818.github.io/web/algorithm) ###  
+###  [七、算法](https://liujiashun818.github.io/web/algorithm) ###  
 
   * [算法](https://liujiashun818.github.io/web/algorithm)
   
-###  [七、跨域](https://liujiashun818.github.io/web/cross-domain) ###  
+###  [八、跨域](https://liujiashun818.github.io/web/cross-domain) ###  
 
   * [跨域](https://liujiashun818.github.io/web/cross-domain)
   
