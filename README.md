@@ -33,3 +33,6 @@
 
   * [跨域](https://liujiashun818.github.io/web/cross-domain)
   
+###  [九、浏览器兼容问题](https://liujiashun818.github.io/web/borwser-combatible) ###  
+
+  * [浏览器兼容问题](https://liujiashun818.github.io/web/borwser-combatible)
